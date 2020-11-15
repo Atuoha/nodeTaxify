@@ -1,0 +1,113 @@
+ <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+          <a class="nav-link" href="/admin">
+            <i class="fa fa-fw fa-dashboard"></i>
+            <span class="nav-link-text">Dashboard</span>
+          </a>
+        </li>
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Users">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#users" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-user"></i>
+            <span class="nav-link-text">Users</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="users">
+            <li>
+              <a href="/admin/users">All Users</a>
+            </li>
+
+              <li>
+              <a href="/admin/users/create">Create User</a>
+            </li>
+
+            <li>
+              <a href="/admin/users/dummy">Dummy User</a>
+            </li>
+          </ul>
+        </li>
+
+
+     
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Posts">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#posts" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-file"></i>
+            <span class="nav-link-text">Posts</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="posts">
+            <li>
+              <a href="/admin/posts">All Posts</a>
+            </li>
+
+            {{#if loggedUser}}
+              <li>
+                <a href="/admin/posts/myPost/{{loggedUser.id}}">My Posts</a>
+              </li>
+            {{/if}}
+
+              <li>
+              <a href="/admin/posts/create">Create Post</a>
+            </li>
+
+            <li>
+              <a href="/admin/posts/dummy">Dummy Post</a>
+            </li>
+          </ul>
+        </li>
+     
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Categories">
+          <a class="nav-link" href="/admin/categories">
+            <i class="fa fa-fw fa-link"></i>
+            <span class="nav-link-text">Categories</span>
+          </a>
+        </li>
+
+
+
+         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Comments">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#comments" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-envelope"></i>
+            <span class="nav-link-text">Comments</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="comments">
+            <li>
+              <a href="/comments">All Comments</a>
+            </li>
+
+            {{#if loggedUser}}
+              <li>
+                <a href="/comments/myComments/{{loggedUser.id}}">My Comments</a>
+              </li>
+            {{/if}}
+
+              <li>
+              <a href="/replies">All Replies</a>
+            </li>
+
+             {{#if loggedUser}}
+              <li>
+                <a href="/replies/myReplies/{{loggedUser.id}}">My Replies</a>
+              </li>
+            {{/if}}
+
+          </ul>
+        </li>
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="User">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#user" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-user"></i>
+            <span class="nav-link-text">{{#if loggedUser}} {{loggedUser.fullname}} {{/if}}</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="user">
+            <li>
+              <a href="/logout"><i class="fa fa-fw fa-sign-out"></i>Logout</a>
+            </li>
+
+              <li>
+              <a href="/"><i class="fa fa-fw fa-link"></i>Home Website</a>
+            </li>
+
+          </ul>
+        </li>
+
+
+      </ul>

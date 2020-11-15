@@ -1,0 +1,64 @@
+<h3>Posts</h3>
+
+{{> admin/flash_msgs }}
+
+<div class="card ">
+    <div class="card-header">
+          <i class="fa fa-table"></i> All Posts
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                    {{!-- <th>Id</th> --}}
+                    <th>Title</th>
+                    <th>Sub</th>
+                    <th>Author</th>
+                    <th>Status</th>
+                    <th>Category</th>
+                    <th>Content</th>
+                    <th>Allow Comments</th>
+                    <th>Imagery</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    {{#each posts}}
+                    <tr>
+                    {{!-- <td>{{id}}</td> --}}
+                    <td>{{title}}</td>
+                    <td>{{sub}}</td>
+                    <td>{{user.fullname}}</td>
+                    <td>{{status}}</td>
+                    <td>{{category.title}}</td>
+                    <td>{{body}}</td>
+                    <td>{{allowComments}}</td>
+                    <td><img src="/uploads/{{file}}" width="100" alt=""></td>
+                    <td>{{generate_date date 'MMM-Do-Y'}} </td>
+
+                    <td><a class="btn btn-success" href="/admin/posts/{{id}}/edit">Edit</a></td>
+                    <td><a class="btn btn-danger" href="/admin/posts/{{id}}/delete">Delete</a>
+
+                    {{!-- <td><a class="btn btn-warning" href="/single_post/{{id}}">View</a></td> --}}
+                    <td><a class="btn btn-warning" href="/single_post/{{slug}}">View</a></td>
+
+
+                    
+                    {{!-- <form action="/admin/posts/{{id}}/delete?_method=DELETE" method="POST">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form> --}}  
+                    {{!-- You can use the form for conventional delete request purposes or just use the link which initiates a get request --}}
+
+                    
+                    </tr>
+
+                    {{/each}}
+               </tbody>
+            </table> 
+        </div>
+    </div>       
+</div>
+

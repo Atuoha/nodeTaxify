@@ -1,0 +1,112 @@
+<h3>Comments</h3>
+
+{{#if success_msg}}
+<div class="alert alert-success">{{ success_msg }}</div>
+{{/if}}
+
+<div class="card ">
+    <div class="card-header">
+          <i class="fa fa-table"></i> All Comments
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                    {{!-- <th>Id</th> --}}
+                    <th>Comment</th>
+                    <th>User</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    {{#each comments}}
+                    <tr>
+                    {{!-- <td>{{id}}</td> --}}
+                    <td>{{msg}}</td>
+                    <td>{{user.fullname}}</td>
+                    <td>{{generate_date date 'MMM-Do-Y'}} </td>
+                    {{!-- <td>
+
+                        {{#ifeq status "true"}} 
+                            <form method="post" action="/comments/update/{{id}}">
+                                <input type="hidden" value="false" name="approveComments">
+                                <button class="btn btn-warning" type="submit">Unapprove</button>
+                            </form>
+                        {{/ifeq}}
+                        {{#ifeq approveComments "false"}} 
+                            <form method="post" action="/comments/update/{{id}}">
+                                <input type="hidden" value="true" name="approveComments">
+                                <button class="btn btn-success" type="submit">Approve</button>
+                            </form>
+                        {{/ifeq}}
+                        
+                    </td>  --}}     
+                    {{!-- This code up that is commentted is totoally working fine but the checkbox below handles it better using bootstrap-switch.js library. The implementation code is at the bottom of this page --}}
+
+                    <td>
+                        <input type="checkbox" id="{{id}}" value="" {{#if approveComments}} checked {{/if}} name="approveComments" class="appCmnts">
+                    </td>
+                    <td><a class="btn btn-danger" href="/comments/{{id}}/delete">Delete</a>
+                    
+                    {{!-- <form action="/admin/posts/{{id}}/delete?_method=DELETE" method="POST">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form> --}}  
+                    {{!-- You can use the form for conventional delete request purposes or just use the link which initiates a get request --}}
+                    </td>
+
+                    
+                    </tr>
+
+                    {{/each}}
+               </tbody>
+            </table> 
+        </div>
+    </div>       
+</div>
+
+
+
+
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/js/bootstrap-switch.js"></script>
+<script src="/js/sweetalert.min.js"></script>
+<script>
+  $(document).ready(()=>{
+      $('.appCmnts').bootstrapSwitch()
+
+
+     // This shit sends an ajax request to comment's update url to update it's approvals
+      $('.appCmnts').on('switchChange.bootstrapSwitch', function(e, data){
+          let status = data
+          let id = $(this).attr('id')
+          $(this).attr('value', status)
+          console.log(status, id)
+          
+          $.ajax({
+            url: `/comments/update/${id}`,
+            data: {approveComments: status},
+            type: 'Post',
+            cache: false,
+            success: (data=>{
+              if(!data.error){
+                  swal({  //sweetalert.js library
+                        title:  `Status Changed to ${status}`,
+                        text: `Kudos! You've successfully changed the allowComments status to ${status}. `,
+                        icon: "success",    
+                        timer: 5500,
+                        closeOnClickOutside: false  
+                  });
+
+              }
+            })
+          })
+      })
+
+      
+
+  })
+  
+</script>

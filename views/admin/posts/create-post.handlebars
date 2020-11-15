@@ -1,0 +1,120 @@
+<h3>Create Post</h3>
+
+{{#each errors}}
+
+    <div class="alert alert-danger">{{message}}</div>
+
+{{/each}}
+
+<div class="card ">
+    <div class="card-header">Create a post by filling this form....</div>
+      <div class="card-body">
+            <form method="post" id="create-post" enctype="multipart/form-data" action="/admin/posts/create">
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <label for="title">Title</label>
+                            <input name="title" class="form-control" id="title" required validate  type="text" aria-describedby="nameHelp" placeholder="Enter Post Title">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="sub">Sub-Title</label>
+                            <input name="sub" class="form-control" id="sub" required validate type="text" aria-describedby="nameHelp" placeholder="Enter Sub-Title">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <label for="category">Category</label>
+                             <select class="form-control" name="category" required validate  id="category">
+                                {{#each categories}}
+                                     <option value="{{id}}">{{title}}</option>
+                                {{/each}}
+                            </select> 
+                        </div>
+                        <div class="col-md-6">
+                           <label for="status">Status</label>
+                            <select class="form-control" name="status" required validate  id="status">
+                                <option value="Public">Public</option>
+                                <option value="Private">Private</option>
+                                <option value="Draft">Draft</option>
+                            </select> 
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <label for="exampleInputLastName">Imagery</label>
+                            <input accept="image/*" name="file" class="form-control" id="inpFile" required validate type="file" aria-describedby="nameHelp" >
+                        </div>
+
+                        <div class="col-md-6">
+                             <div class="image-preview pull-right" id="imagePreview">
+                            <img width="100" class="img-circle img-thumbnail image-preview__image" src="/uploads/img_place.png" alt=""> 
+                            <span class="image-preview__default-text"> </span>
+                          </div>
+                    </div>
+                </div>
+
+                
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <label for="textarea">Content</label>
+                            <textarea name="body" class="form-control" id="textarea" required validate cols="30" rows="10"></textarea>
+                        </div>
+                    </div>                  
+                </div>
+
+                <div class="form-group">
+                    <label for="allowComments">
+                    <input type="checkbox" name="allowComments"  id="allowComments">
+                    Allow Comments
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit">Publish Post</button>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- SCRIPTING FOR PREVIEWING IMAGE BEFORE UPLOADING USING PHP -->
+<script>
+
+    const inpFile = document.getElementById('inpFile');
+    const previewContainer = document.getElementById('imagePreview');
+    const previewImage = document.querySelector('.image-preview__image');
+    const previewDefault = document.querySelector('.image-preview__default-text');
+
+    inpFile.addEventListener('change',function(){
+        const file = this.files[0];
+
+        if(file){
+            const reader = new FileReader();
+            previewDefault.style.display = 'none';
+            previewImage.style.display = 'block';
+
+            reader.addEventListener('load',function(){
+                previewImage.setAttribute('src',this.result);
+                previewImage.style.width = '130px';
+            });
+            reader.readAsDataURL(file)
+        }else{
+            previewDefault.style.display = 'block';
+            previewImage.style.display = 'none';
+            previewImage.setAttribute('src',"");
+        }
+    })
+</script>

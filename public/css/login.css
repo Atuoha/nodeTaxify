@@ -1,0 +1,17 @@
+.link{
+    color: #ddd;
+    text-decoration: none;
+  }
+  
+  .link:hover{
+    color:#444;
+    text-decoration: none;
+  }
+
+  .register_interface{
+      display:none;
+  }
+
+  .forgot_interface{
+    display:none;
+}

@@ -1,0 +1,124 @@
+<h3>Categories</h3>
+{{> admin/flash_msgs}}
+
+<div class="row">
+    <div class="col-md-6">
+        <form method="post" action="/admin/categories/create" id="create-form">
+
+            <div class="form-group">
+                <label for="name">Category Name</label>
+                <input  class="form-control"required type="text" placeholder="title" name="title" id="name">
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">Create Category</button>
+            </div>
+        </form>
+
+        <div class="form-group">
+        <input  type="checkbox" name="" id="gen-dummy">
+        <label for="gen-dummy" class="form-check-label">Generate Dummy Categories</label>
+        </div>
+
+
+        <form method="post" action="/admin/categories/dummy" id="dummy-form" >
+            <div class="form-group">
+                <label for="number">Number of Categories</label>
+                <input  class="form-control"required type="number" placeholder="Number" name="number" id="number">
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">Generate Dummy Categories</button>
+            </div>
+        </form>
+    </div> 
+
+    <div class="col-md-6">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+               
+             {{#each categories}}
+                   <tr>  
+                    <td class="title">{{title}}</td>
+                    <td>{{generate_date date 'MMM-Do-Y'}} </td>
+                    <td><a class="btn btn-success edit" rel="{{title}}" href="/admin/categories/{{id}}/edit" id="btn-edit">Edit</a></td>
+                    <td><a class="btn btn-danger" href="/admin/categories/{{id}}/delete">Delete</a>
+                 </tr>
+
+            {{/each}}
+            </tbody>
+        </table>
+    </div>    
+
+
+    <div class="col-md-5" id="edit-form">
+    <p class="lead"> </p>
+    <form id="editing" method="post" action="">
+            <div class="form-group">
+                <label for="edit_title">Category Name</label>
+                <input class="form-control" type="text" value="" name="title" id="edit_title">
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Edit Category</button>
+            </div>
+        </form>
+    </div>    
+</div>    
+
+
+
+
+
+
+
+
+
+
+
+<style>
+    #edit-form, #dummy-form{
+        display:none;
+    }
+</style>
+
+
+
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script>
+    $('#gen-dummy').click(function(){
+        if(this.checked){
+            $('#dummy-form').fadeIn('slow');
+            $('#create-form').fadeOut('slow');
+             $('#edit-form').fadeOut('slow');
+            console.log('Checked')
+        }else{
+           $('#create-form').fadeIn('slow');
+            $('#dummy-form').fadeOut('slow');
+             $('#edit-form').fadeOut('slow');
+
+            console.log('Unchecked')
+        }
+    })
+
+    $('.edit').click(function(e){
+        e.preventDefault()
+        let title = $(this).attr('rel');
+        let action = $(this).attr('href')
+        $('#edit_title').attr('value', title);
+        $('#editing').attr('action', action);
+        $('.lead').html(`Edit Category | ${title}`)
+        $('#dummy-form').fadeOut('slow');
+        $('#edit-form').fadeIn('slow');
+        console.log(title)
+
+    })
+</script>

@@ -1,0 +1,92 @@
+<h3>Replies</h3>
+
+{{#if success_msg}}
+<div class="alert alert-success">{{ success_msg }}</div>
+{{/if}}
+
+<div class="card ">
+    <div class="card-header">
+          <i class="fa fa-table"></i> All Replies
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                    {{!-- <th>Id</th> --}}
+                    <th>Reply</th>
+                    <th>User</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    {{#each replies}}
+                    <tr>
+                    {{!-- <td>{{id}}</td> --}}
+                    <td>{{reply}}</td>
+                    <td>{{user.fullname}}</td>
+                    <td>{{generate_date date 'MMM-Do-Y'}} </td>
+                    
+
+                    <td>
+                        <input type="checkbox" id="{{id}}" value="" {{#if approveReply}} checked {{/if}} name="approveReply" class="appCmnts">
+                    </td>
+                    <td><a class="btn btn-danger" href="/replies/{{id}}/delete">Delete</a>
+                    
+                    </td>
+
+                    
+                    </tr>
+
+                    {{/each}}
+               </tbody>
+            </table> 
+        </div>
+    </div>       
+</div>
+
+
+
+
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/js/bootstrap-switch.js"></script>
+<script src="/js/sweetalert.min.js"></script>
+<script>
+  $(document).ready(()=>{
+      $('.appCmnts').bootstrapSwitch()
+
+
+     // This shit sends an ajax request to Reply's update url to update it's approvals
+      $('.appCmnts').on('switchChange.bootstrapSwitch', function(e, data){
+          let status = data
+          let id = $(this).attr('id')
+          $(this).attr('value', status)
+          console.log(status, id)
+          
+          $.ajax({
+            url: `/replies/update/${id}`,
+            data: {approveReply: status},
+            type: 'Post',
+            cache: false,
+            success: (data=>{
+              if(!data.error){
+                  swal({  //sweetalert.js library
+                        title:  `Status Changed to ${status}`,
+                        text: `Kudos! You've successfully changed the allowReply status to ${status}. `,
+                        icon: "success",    
+                        timer: 5500,
+                        closeOnClickOutside: false  
+                  });
+
+              }
+            })
+          })
+      })
+
+      
+
+  })
+  
+</script>
