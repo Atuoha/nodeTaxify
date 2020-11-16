@@ -21,17 +21,37 @@ $(document).ready(function() {
 
     //------- Lightbox  js --------//  
 
- 
+    $('.img-gal').magnificPopup({
+        type: 'image',
+        gallery: {
+            enabled: true
+        }
+    });
 
-      //------- Datepicker  js --------//  
+    $('.play-btn').magnificPopup({
+        type: 'iframe',
+        mainClass: 'mfp-fade',
+        removalDelay: 160,
+        preloader: false,
+        fixedContentPos: false
+    });
 
-     $( function() {
+    //------- Datepicker  js --------//  
+
+      $( function() {
         $( "#datepicker" ).datepicker();
         $( "#datepicker2" ).datepicker();
       } );
 
-      
 
+    //------- Superfist nav menu  js --------//  
+
+    $('.nav-menu').superfish({
+        animation: {
+            opacity: 'show'
+        },
+        speed: 400
+    });
 
 
     if ( $(".site-content").hasClass("instagram") ) {
@@ -39,6 +59,38 @@ $(document).ready(function() {
     }
 
 
+    function footerIntagram(){
+        var feed = new Instafeed({
+            target: "footer-ig-stream",
+            get: "user",
+            limit : 6,
+            resolution: 'standard_resolution',
+            userId: 2159114835,
+            accessToken: "2159114835.9e667eb.7a37f9b944ea4023b94541c661cbf43d",
+            template: '<a href="{{image}}" class="mfp-ig-popup" data-effect="mfp-zoom-in" title="{{title}}"><img src="{{image}}" alt="{{caption}}"></a>',
+            after: function() {
+                $(".mfp-ig-popup").magnificPopup({
+                    type: "image",
+                    removalDelay: 500, //delay removal by X to allow out-animation
+                    image: {
+                        cursor: null
+                    },
+                    gallery: {
+                        enabled: true // set to false to disable gallery
+                    },
+                    callbacks: {
+                        beforeOpen: function() {
+                            // just a hack that adds mfp-anim class to markup 
+                            this.st.image.markup = this.st.image.markup.replace("mfp-figure", "mfp-figure mfp-with-anim");
+                            this.st.mainClass = this.st.el.attr("data-effect");
+                        }
+                    },
+                    midClick: true
+                });
+            }
+        });
+        feed.run();
+    }
     
 
     //------- Mobile Nav  js --------//  
@@ -153,9 +205,146 @@ $(document).ready(function() {
         }
     });
 
-   
+    //------- Google Map  js --------//  
+
+    if (document.getElementById("map")) {
+        google.maps.event.addDomListener(window, 'load', init);
+
+        function init() {
+            var mapOptions = {
+                zoom: 11,
+                center: new google.maps.LatLng(40.6700, -73.9400), // New York
+                styles: [{
+                    "featureType": "water",
+                    "elementType": "geometry",
+                    "stylers": [{
+                        "color": "#e9e9e9"
+                    }, {
+                        "lightness": 17
+                    }]
+                }, {
+                    "featureType": "landscape",
+                    "elementType": "geometry",
+                    "stylers": [{
+                        "color": "#f5f5f5"
+                    }, {
+                        "lightness": 20
+                    }]
+                }, {
+                    "featureType": "road.highway",
+                    "elementType": "geometry.fill",
+                    "stylers": [{
+                        "color": "#ffffff"
+                    }, {
+                        "lightness": 17
+                    }]
+                }, {
+                    "featureType": "road.highway",
+                    "elementType": "geometry.stroke",
+                    "stylers": [{
+                        "color": "#ffffff"
+                    }, {
+                        "lightness": 29
+                    }, {
+                        "weight": 0.2
+                    }]
+                }, {
+                    "featureType": "road.arterial",
+                    "elementType": "geometry",
+                    "stylers": [{
+                        "color": "#ffffff"
+                    }, {
+                        "lightness": 18
+                    }]
+                }, {
+                    "featureType": "road.local",
+                    "elementType": "geometry",
+                    "stylers": [{
+                        "color": "#ffffff"
+                    }, {
+                        "lightness": 16
+                    }]
+                }, {
+                    "featureType": "poi",
+                    "elementType": "geometry",
+                    "stylers": [{
+                        "color": "#f5f5f5"
+                    }, {
+                        "lightness": 21
+                    }]
+                }, {
+                    "featureType": "poi.park",
+                    "elementType": "geometry",
+                    "stylers": [{
+                        "color": "#dedede"
+                    }, {
+                        "lightness": 21
+                    }]
+                }, {
+                    "elementType": "labels.text.stroke",
+                    "stylers": [{
+                        "visibility": "on"
+                    }, {
+                        "color": "#ffffff"
+                    }, {
+                        "lightness": 16
+                    }]
+                }, {
+                    "elementType": "labels.text.fill",
+                    "stylers": [{
+                        "saturation": 36
+                    }, {
+                        "color": "#333333"
+                    }, {
+                        "lightness": 40
+                    }]
+                }, {
+                    "elementType": "labels.icon",
+                    "stylers": [{
+                        "visibility": "off"
+                    }]
+                }, {
+                    "featureType": "transit",
+                    "elementType": "geometry",
+                    "stylers": [{
+                        "color": "#f2f2f2"
+                    }, {
+                        "lightness": 19
+                    }]
+                }, {
+                    "featureType": "administrative",
+                    "elementType": "geometry.fill",
+                    "stylers": [{
+                        "color": "#fefefe"
+                    }, {
+                        "lightness": 20
+                    }]
+                }, {
+                    "featureType": "administrative",
+                    "elementType": "geometry.stroke",
+                    "stylers": [{
+                        "color": "#fefefe"
+                    }, {
+                        "lightness": 17
+                    }, {
+                        "weight": 1.2
+                    }]
+                }]
+            };
+            var mapElement = document.getElementById('map');
+            var map = new google.maps.Map(mapElement, mapOptions);
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(40.6700, -73.9400),
+                map: map,
+                title: 'Snazzy!'
+            });
+        }
+    }
 
     //------- Mailchimp js --------//  
 
-   
+    $(document).ready(function() {
+        $('#mc_embed_signup').find('form').ajaxChimp();
+    });
+
 });

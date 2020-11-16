@@ -18,19 +18,23 @@
 							  </li>						  			          	          
 							  <li><a href="/blogs">Blog</a></li>
 
-
-                <li class="menu-has-children"><a href="">User</a>
+							{{#if loggedUser}}
+               				 <li class="menu-has-children"><a href="#"><i class="fa fa-user "></i> User</a>
 							    <ul>
-							      <li><a href="blog-home.html">Dashboard</a></li>
-							      <li><a href="blog-single.html">Logout</a></li>
-							      <li class="menu-has-children"><a href="">Contributions</a>
+							      <li><a href="#"><i class="fa fa-dashboard "></i> Dashboard</a></li>
+							      <li><a href="#"><i class="fa fa-sign-out "></i> Logout</a></li>
+							      <li class="menu-has-children"><a href="#"> <i class="fa fa-link "></i> Contributions</a>
 							        <ul>
-							          <li><a href="#">Blog posts</a></li>
-							          <li><a href="#">Bookings</a></li>
+							          <li><a href="#"><i class="fa fa-file "></i> Blog posts</a></li>
+							          <li><a href="#"><i class="fa fa-taxi "></i> Bookings</a></li>
 							        </ul>
 							      </li>					              
 							    </ul>
 							  </li>
+
+							  {{else}}
+								  <li><a href="/logs/sign"><i class="fa fa-sign-in"></i> Sign in</a></li>
+							  {{/if}}
 
 
 

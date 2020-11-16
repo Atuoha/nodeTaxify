@@ -104,7 +104,6 @@ $('#distance_form').submit(function(e){
  //   
 //  $('select').selectpicker();
     $('#timepicker1').timepicker();
-    $('#datepcker1').datepcker();
 
     // $('select').selectpicker();
 

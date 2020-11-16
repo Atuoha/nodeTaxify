@@ -1,4 +1,5 @@
 $(document).ready( ()=>{
+
     $('#register_activator').click( ()=>{
         $('.register_interface').fadeIn('slow'); 
         $('.login_interface').css('display','none');

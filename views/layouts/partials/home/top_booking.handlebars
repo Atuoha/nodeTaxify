@@ -14,8 +14,10 @@
 							<a href="#" class="primary-btn text-uppercase">Call for taxi</a>
 						</div>
 						<div class="col-lg-4  col-md-6 header-right">
-							<h4 class="pb-30">Book Your Taxi Online!</h4>
 							<form class="form" method="post" id="distance_form">
+								<h4 class="pb-30">Book Your Taxi Online!</h4>
+
+						{{#if loggedUser}}
 
 								 <div class="form-group">
 									   <select id="from_place" required class="selectpicker select show-tick" data-width="100%" data-live-search="true" title="From Destination" data-size="4" data-header="From Destination" name="from_place">
@@ -92,6 +94,11 @@
 								<button class="btn btn-default btn-lg btn-block text-center text-uppercase" type="submit" >Book Now
 								</button>
 							    </div>
+
+						{{else}}	
+						<div class="alert alert-success"><a href="/logs/sign"><i class="fa fa-sign-in"></i> Sign in</a> to book now!</div>
+
+						{{/if}}	
 							</form>
 
                             <div class="loading">

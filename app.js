@@ -28,15 +28,15 @@ app.use(express.static(path.join(__dirname, 'public'))) // Loading Static files 
 
 
 // custom select handlebars function
-// const {select, generate_date, ifeq, paginate} = require('./helpers/handlebars-helpers')
+const {select, generate_date, ifeq, paginate} = require('./helpers/handlebars-helpers')
 
-// select: select, generate_date: generate_date, ifeq: ifeq, paginate: paginate
+// 
 
 // --SETTING view engine using handlebars
 app.engine('handlebars', handlebars(
     {
         defaultLayout: 'home',
-        helpers:{},
+        helpers:{select: select, generate_date: generate_date, ifeq: ifeq, paginate: paginate},
         partialsDir: path.join(__dirname, "views/layouts/partials"),
         handlebars: allowInsecurePrototypeAccess(Handlebars)
     
@@ -97,9 +97,50 @@ app.use(methodOverride('_method'))
 const home = require('./routes/home/home')
 app.use('/', home)
 
+// logs
+const logs = require('./routes/home/logs');
+app.use('/logs', logs);
 
+
+// admin SECTION
+const admin = require('./routes/account/admin/admin');
+app.use('/admin', admin)
+
+
+// admin users
+const admin_users = require('./routes/account/admin/user');
+app.use('/admin/users', admin_users)
+
+
+
+// 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// user SECTION
+const user = require('./routes/account/user/user');
+app.use('/user', user)
 
 
 app.listen(port, ()=>{
-    console.log(`listening to port: ${port}`)
+    console.log(`listening to port:${port}`)
 })

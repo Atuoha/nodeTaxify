@@ -1,0 +1,94 @@
+ <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+          <a class="nav-link" href="/user">
+            <i class="fa fa-fw fa-dashboard"></i>
+            <span class="nav-link-text">Dashboard</span>
+          </a>
+        </li>
+
+
+          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Profile">
+          <a class="nav-link" href="/user/profile">
+            <i class="fa fa-fw fa-user"></i>
+            <span class="nav-link-text">Profile</span>
+          </a>
+        </li>
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookings">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#booking" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-taxi"></i>
+            <span class="nav-link-text">Booking</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="booking">
+            <li>
+              <a href="/user/booking/{{loggedUser.id}}">All Bookings</a>
+            </li>
+
+            <li>
+              <a href="/user/booking/create">Create Booking</a>
+            </li>
+
+          </ul>
+        </li>
+
+
+
+      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Contact">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#contact" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-phone"></i>
+            <span class="nav-link-text">Contact</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="contact">
+            <li>
+              <a href="/user/contact/{{loggedUser.id}}">All Contact</a>
+            </li>
+
+              <li>
+              <a href="/user/contact/create">Create Contact</a>
+            </li>
+
+          </ul>
+        </li>
+
+
+     
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Posts">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#posts" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-file"></i>
+            <span class="nav-link-text">Posts</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="posts">
+            
+              <li>
+                <a href="/user/posts/myPost/{{loggedUser.id}}">My Posts</a>
+              </li>
+
+              <li>
+              <a href="/user/posts/create">Create Post</a>
+            </li>
+          </ul>
+        </li>
+     
+       
+
+         
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="User">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#user" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-user"></i>
+            <span class="nav-link-text">{{#if loggedUser}} {{loggedUser.fullname}} {{/if}}</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="user">
+            <li>
+              <a href="/logout"><i class="fa fa-fw fa-sign-out"></i>Logout</a>
+            </li>
+
+              <li>
+              <a href="/"><i class="fa fa-fw fa-link"></i>Home Website</a>
+            </li>
+
+          </ul>
+        </li>
+
+
+      </ul>

@@ -6,9 +6,17 @@
           </a>
         </li>
 
+
+         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Profile">
+          <a class="nav-link" href="/admin/profile">
+            <i class="fa fa-fw fa-user"></i>
+            <span class="nav-link-text">Profile</span>
+          </a>
+        </li>
+
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Users">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#users" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-user"></i>
+            <i class="fa fa-fw fa-group"></i>
             <span class="nav-link-text">Users</span>
           </a>
           <ul class="sidenav-second-level collapse" id="users">
@@ -24,6 +32,22 @@
               <a href="/admin/users/dummy">Dummy User</a>
             </li>
           </ul>
+        </li>
+
+
+
+         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Media">
+          <a class="nav-link" href="/admin/media">
+            <i class="fa fa-fw fa-photo"></i>
+            <span class="nav-link-text">Media</span>
+          </a>
+        </li>
+
+          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookings">
+          <a class="nav-link" href="/admin/booking">
+            <i class="fa fa-fw fa-taxi"></i>
+            <span class="nav-link-text">Bookings</span>
+          </a>
         </li>
 
 
@@ -63,34 +87,37 @@
 
 
 
-         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Comments">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#comments" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-envelope"></i>
-            <span class="nav-link-text">Comments</span>
+
+
+         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Services">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#services" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-gears"></i>
+            <span class="nav-link-text">Services</span>
           </a>
-          <ul class="sidenav-second-level collapse" id="comments">
+          <ul class="sidenav-second-level collapse" id="services">
             <li>
-              <a href="/comments">All Comments</a>
+              <a href="/admin/services">All Services</a>
             </li>
 
-            {{#if loggedUser}}
               <li>
-                <a href="/comments/myComments/{{loggedUser.id}}">My Comments</a>
-              </li>
-            {{/if}}
-
-              <li>
-              <a href="/replies">All Replies</a>
+              <a href="/admin/services/create">Create Services</a>
             </li>
 
-             {{#if loggedUser}}
-              <li>
-                <a href="/replies/myReplies/{{loggedUser.id}}">My Replies</a>
-              </li>
-            {{/if}}
-
+            <li>
+              <a href="/admin/services/dummy">Dummy Services</a>
+            </li>
           </ul>
         </li>
+
+
+
+         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Contact">
+          <a class="nav-link" href="/admin/contact">
+            <i class="fa fa-fw fa-phone"></i>
+            <span class="nav-link-text">Contact</span>
+          </a>
+        </li>
+    
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="User">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#user" data-parent="#exampleAccordion">
