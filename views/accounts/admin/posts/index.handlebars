@@ -26,39 +26,43 @@
                 </thead>
                 
                 <tbody>
+                {{#if posts}}    
                     {{#each posts}}
-                    <tr>
-                    {{!-- <td>{{id}}</td> --}}
-                    <td>{{title}}</td>
-                    <td>{{sub}}</td>
-                    <td>{{user.fullname}}</td>
-                    <td>{{status}}</td>
-                    <td>{{category.title}}</td>
-                    <td>{{body}}</td>
-                    <td><img src="/uploads/{{file}}" width="100" alt=""></td>
-                    {{#foreach multi_files)}}
-                        <td><img src="/uploads/{{this}}" width="100" alt=""></td>
-                    {{/foreach}}
-                    <td>{{generate_date date 'MMM-Do-Y'}} </td>
+                        <tr>
+                        {{!-- <td>{{id}}</td> --}}
+                        <td>{{title}}</td>
+                        <td>{{sub}}</td>
+                        <td>{{user.fullname}}</td>
+                        <td>{{status}}</td>
+                        <td>{{category.title}}</td>
+                        <td>{{body}}</td>
+                        <td><img src="/uploads/{{file}}" width="100" alt=""></td>
+                        {{#foreach multi_files)}}
+                            <td><img src="/uploads/{{this}}" width="100" alt=""></td>
+                        {{/foreach}}
+                        <td>{{generate_date date 'MMM-Do-Y'}} </td>
 
-                    <td><a class="btn btn-success" href="/admin/posts/{{id}}/edit">Edit</a></td>
-                    {{!-- <td><a class="btn btn-danger" href="/admin/posts/{{id}}/delete">Delete</a> --}}
+                        <td><a class="btn btn-success" href="/admin/posts/{{id}}/edit">Edit</a></td>
+                        {{!-- <td><a class="btn btn-danger" href="/admin/posts/{{id}}/delete">Delete</a> --}}
 
-                    {{!-- <td><a class="btn btn-warning" href="/single_post/{{id}}">View</a></td> --}}
-                    <td><a class="btn btn-warning" href="/single_post/{{slug}}">View</a></td>
+                        {{!-- <td><a class="btn btn-warning" href="/single_post/{{id}}">View</a></td> --}}
+                        <td><a class="btn btn-warning" href="/single_post/{{slug}}">View</a></td>
 
 
-                    <td>
-                     <form action="/admin/posts/{{id}}/delete?_method=DELETE" method="POST">
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form> 
-                    </td>
-                    {{!-- You can use the form for conventional delete request purposes or just use the link which initiates a get request --}}
+                        <td>
+                        <form action="/admin/posts/{{id}}/delete?_method=DELETE" method="POST">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form> 
+                        </td>
+                        {{!-- You can use the form for conventional delete request purposes or just use the link which initiates a get request --}}
 
-                    
-                    </tr>
+                        
+                        </tr>
 
                     {{/each}}
+            {{else}}
+            <div class="alert alert-success">No Post to display</div>
+            {{/if}}         
                </tbody>
             </table> 
         </div>

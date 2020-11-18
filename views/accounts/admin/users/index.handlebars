@@ -25,31 +25,33 @@
                 </thead>
                 
                 <tbody>
+                {{#if users}}    
                     {{#each users}}
-                    <tr>
-                    {{!-- <td>{{id}}</td> --}}
-                    <td>{{fullname}}</td>
-                    <td>{{email}}</td>
-                    <td>{{role}}</td>
-                    <td>{{status}}</td>
-                    <td>
-                        {{#if file}}<img src="/uploads/{{file}}" width="100" alt="">
-                        {{else}} <img src="/uploads/default.png" width="100" alt="">{{/if}} 
-                    </td>
-                    {{!-- <td>{{generate_date date 'MMM-Do-Y'}} </td> --}}
-                    <td><a class="btn btn-success" href="/admin/users/{{id}}/edit">Edit</a></td>
-                    {{!-- <td><a class="btn btn-danger" href="/admin/users/{{id}}/delete">Delete</a> --}}
-                    <td>
-                    <form action="/admin/users/{{id}}/delete?_method=DELETE" method="POST">
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form> 
-                    {{!-- You can use the form for conventional delete request purposes or just use the link which initiates a get request --}}
-                    </td>
-
-                    
+                        <tr>
+                        {{!-- <td>{{id}}</td> --}}
+                        <td>{{fullname}}</td>
+                        <td>{{email}}</td>
+                        <td>{{role}}</td>
+                        <td>{{status}}</td>
+                        <td>
+                            {{#if file}}<img src="/uploads/{{file}}" width="100" alt="">
+                            {{else}} <img src="/uploads/default.png" width="100" alt="">{{/if}} 
+                        </td>
+                        {{!-- <td>{{generate_date date 'MMM-Do-Y'}} </td> --}}
+                        <td><a class="btn btn-success" href="/admin/users/{{id}}/edit">Edit</a></td>
+                        {{!-- <td><a class="btn btn-danger" href="/admin/users/{{id}}/delete">Delete</a> --}}
+                        <td>
+                        <form action="/admin/users/{{id}}/delete?_method=DELETE" method="POST">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form> 
+                        {{!-- You can use the form for conventional delete request purposes or just use the link which initiates a get request --}}
+                        </td>
                     </tr>
 
                     {{/each}}
+                {{else}}
+                    <div class="alert alert-success">No User to display</div>
+                {{/if}}     
                </tbody>
             </table> 
         </div>

@@ -7,7 +7,7 @@
 
             <div class="form-group">
                 <label for="name">Category Name</label>
-                <input  class="form-control"required type="text" placeholder="title" name="title" id="name">
+                <input  class="form-control"required autofocus type="text" placeholder="title" name="title" id="name">
             </div>
 
             <div class="form-group">
@@ -44,16 +44,24 @@
             </thead>
 
             <tbody>
-               
+        {{#if categories}}       
              {{#each categories}}
                    <tr>  
                     <td class="title">{{title}}</td>
                     <td>{{generate_date date 'MMM-Do-Y'}} </td>
                     <td><a class="btn btn-success edit" rel="{{title}}" href="/admin/categories/{{id}}/edit" id="btn-edit">Edit</a></td>
-                    <td><a class="btn btn-danger" href="/admin/categories/{{id}}/delete">Delete</a>
+                    {{!-- <td><a class="btn btn-danger" href="/admin/categories/{{id}}/delete">Delete</a></td> --}}
+                    <td>
+                        <form action="/admin/categories/{{id}}/delete?_method=DELETE" method="POST">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                    </td>    
                  </tr>
 
             {{/each}}
+        {{else}}
+            <div class="alert alert-success">No Category to display</div>
+        {{/if}}    
             </tbody>
         </table>
     </div>    
