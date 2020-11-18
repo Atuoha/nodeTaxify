@@ -8,7 +8,7 @@
 <div class="card ">
     <div class="card-header">Edit a post by filling this form....</div>
       <div class="card-body">
-            <form method="post" id="create-post" enctype="multipart/form-data" action="/admin/posts/{{post.id}}/update">
+            <form method="post" id="create-post" enctype="multipart/form-data" action="/admin/posts/{{post.id}}/update?_method=PUT">
             {{!-- action="/admin/posts/{{id}}/update?_method=PUT" --}}
                 <div class="form-group">
                     <div class="form-row">
@@ -80,10 +80,10 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="allowComments">
-                    <input type="checkbox" {{#if post.allowComments}} checked="checked"  {{/if}} name="allowComments"  id="allowComments">
-                    Allow Comments
-                    </label>
+                  <div class="col-md-6">
+                            <label for="exampleInputLastName">Featuring image</label>
+                            <input accept="image/*" name="multi_file" multiple class="form-control" id="inpFile" required validate type="file" aria-describedby="nameHelp" >
+                    </div>
                 </div>
 
                 <div class="form-group">

@@ -1,24 +1,22 @@
-const express = require('express');
-const app = express();
-const path = require('path');
-const handlebars = require('express-handlebars');
-const Handlebars = require('handlebars')
-const port = process.env.PORT || 5555;
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access');
-const methodOverride = require('method-override')
-const upload = require('express-fileupload');
-const session = require('express-session');
-const flash = require('connect-flash')
-const passport = require('passport');
-// const eq = require('ember-truth-helpers')
-const {mongoDburl} = require('./config/database')
+const express = require('express'),
+    app = express(),
+    path = require('path'),
+    handlebars = require('express-handlebars'),
+    Handlebars = require('handlebars'),
+    port = process.env.PORT || 5555,
+    mongoose = require('mongoose'),
+    bodyParser = require('body-parser'),
+    {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access'),
+    methodOverride = require('method-override'),
+    upload = require('express-fileupload'),
+    session = require('express-session'),
+    flash = require('connect-flash'),
+    passport = require('passport'),
+    {mongoDburl} = require('./config/database');
 
 mongoose.set('useFindAndModify', false);
 mongoose.Promise = global.Promise;
 
-// mongoose.connect('mongodb://localhost:27017/nodeCms', {useNewUrlParser: true, useUnifiedTopology: true })
 
 mongoose.connect(mongoDburl, {useNewUrlParser: true, useUnifiedTopology: true })
     .then(db=> console.log('Connected'))
@@ -112,6 +110,8 @@ const admin_users = require('./routes/account/admin/user');
 app.use('/admin/users', admin_users)
 
 
+const admin_posts = require('./routes/admin/account/admin/post');
+app.use('/admin/posts', admin_posts)
 
 // 
 
