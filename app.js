@@ -110,8 +110,15 @@ const admin_users = require('./routes/account/admin/user');
 app.use('/admin/users', admin_users)
 
 
-const admin_posts = require('./routes/admin/account/admin/post');
+const admin_category = require('./routes/account/admin/category');
+app.use('/admin/categories', admin_category)
+
+const admin_posts = require('./routes/account/admin/post');
 app.use('/admin/posts', admin_posts)
+
+
+const admin_destination = require('./routes/account/admin/destination');
+app.use('/admin/destination', admin_destination)
 
 // 
 

@@ -1,12 +1,12 @@
 const express =  require('express'),
     router = express.Router(),
-    Post = require('../../models/Post'),
+    Post = require('../../../models/Post'),
+    Category = require('../../../models/Category'),
     faker = require('faker'),
-    { isEmpty, uploadDir } = require('../../helpers/upload-helper'),
+    {userAuth} = require('../../../helpers/authenticate'),
+    { isEmpty } = require('../../../helpers/upload-helpers'),
     path = require('path'),
-    fs = require('fs'),
-    Category = require('../../models/Category'),
-    {userAuth} = require('../../helpers/authenticate');
+    fs = require('fs');
 
 
 
@@ -28,7 +28,7 @@ router.get('/', (req, res)=>{
     .populate('category')
     .populate('user')
     .then(posts=> {
-        res.render('admin/posts', {posts: posts})
+        res.render('accounts/admin/posts', {posts: posts})
     })
     .catch(err=>console.log(`Post Error: ${err}`))
     
@@ -40,7 +40,7 @@ router.get('/create', (req, res)=>{
 
     Category.find()
      .then(categories =>{
-         res.render('admin/posts/create-post', {categories: categories })
+         res.render('accounts/admin/posts/create-post', {categories: categories })
      })
 });
 
@@ -63,7 +63,7 @@ router.post('/create', (req, res)=>{
     }
 
     if(errors.length > 0){
-        res.render('admin/posts/create-post', {errors: errors})
+        res.render('accounts/admin/posts/create-post', {errors: errors})
     }else{
 
 
@@ -81,11 +81,11 @@ router.post('/create', (req, res)=>{
     }
 
     // multi_files --featuring images
-    let multi_files = [];
+    let multi_images = [];
     if(!isEmpty(req.files.multi_files)){
         req.files.multi_files.forEach(single_file=>{
             single_image = Date.now() + '-' + single_file.name
-            multi_files.push(single_image)
+            multi_images.push(single_image)
             let dirUpload = './public/uploads/'
             single_file.mv(dirUpload + single_image, err=>{
                 if(err) throw err;
@@ -99,9 +99,8 @@ router.post('/create', (req, res)=>{
             sub: req.body.sub,
             status: req.body.status,
             category: req.body.category,
-            allowComments: allowComments,
             file: filename,
-            multi_files: multi_files,
+            multi_files: multi_images,
             body: req.body.body,
             // user: req.user.id,
             user: '5fb26dd6794fc32960e640c3',
@@ -128,7 +127,7 @@ router.get('/:id/edit', (req, res)=>{
     .then(post=>{
         Category.find()
         .then(categories =>{
-            res.render('admin/posts/edit', {post: post, categories: categories})
+            res.render('accounts/admin/posts/edit', {post: post, categories: categories})
             console.log(categories)
         })        
     })
@@ -161,11 +160,11 @@ router.put('/:id/update',  (req, res)=>{
         }
 
         // handling multi_files
-        let multi_files = [post.multi_files];
+        let multi_images = [post.multi_files];
         if(!isEmpty(req.files.multi_files)){
             req.files.multi_files.forEach(single_file=>{
                 single_image = Date.now() + '-' + single_file.name
-                multi_files.push(single_image)
+                multi_images.push(single_image)
                 let dirUpload = './public/uploads/'
                 single_file.mv(dirUpload + single_image, err=>{
                     if(err) throw err;
@@ -187,9 +186,8 @@ router.put('/:id/update',  (req, res)=>{
         post.status = req.body.status;
         post.category = req.body.category;
         post.body = req.body.body;
-        post.allowComments = allowComments;
         post.file = filename;
-        multi_files: multi_files,
+        multi_files: multi_images,
         // post.user =  req.user.id;
         post.user =  '5fb26dd6794fc32960e640c3';
         post.save()
@@ -285,7 +283,7 @@ router.get('/myPost/:id', (req, res)=>{
     .populate('user')
     .populate('category')
     .then(posts=>{
-        res.render('admin/posts/loggedInUser_Post', {posts: posts})
+        res.render('accounts/admin/posts/loggedInUser_Post', {posts: posts})
     })
     .catch(err=> console.log(err))
 })

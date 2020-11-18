@@ -1,7 +1,7 @@
 const mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
-const CategorySchema  =  new Schema({
+const destinationSchema  =  new Schema({
 
     title:{
         type: String,
@@ -13,4 +13,4 @@ const CategorySchema  =  new Schema({
     }
 })    
 
-module.exports = mongoose.model('categories', CategorySchema)
+module.exports = mongoose.model('destinations', destinationSchema)

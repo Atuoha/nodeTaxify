@@ -36,7 +36,7 @@ const PostSchema = new Schema({
         type: String,    
     },
 
-    multi_file: [{
+    multi_files: [{
         type: String,    
     }],
 

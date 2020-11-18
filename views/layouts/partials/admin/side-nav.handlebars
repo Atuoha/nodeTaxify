@@ -8,7 +8,7 @@
 
 
          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Profile">
-          <a class="nav-link" href="/admin/profile">
+          <a class="nav-link" href="/admin/users/{{loggedUser.id}}/profile">
             <i class="fa fa-fw fa-user"></i>
             <span class="nav-link-text">Profile</span>
           </a>
@@ -33,8 +33,6 @@
             </li>
           </ul>
         </li>
-
-
 
          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Media">
           <a class="nav-link" href="/admin/media">
@@ -88,28 +86,12 @@
 
 
 
-
-         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Services">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#services" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-gears"></i>
-            <span class="nav-link-text">Services</span>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Destinations">
+          <a class="nav-link" href="/admin/destinations">
+            <i class="fa fa-fw fa-map"></i>
+            <span class="nav-link-text">Destinations</span>
           </a>
-          <ul class="sidenav-second-level collapse" id="services">
-            <li>
-              <a href="/admin/services">All Services</a>
-            </li>
-
-              <li>
-              <a href="/admin/services/create">Create Services</a>
-            </li>
-
-            <li>
-              <a href="/admin/services/dummy">Dummy Services</a>
-            </li>
-          </ul>
         </li>
-
-
 
          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Contact">
           <a class="nav-link" href="/admin/contact">

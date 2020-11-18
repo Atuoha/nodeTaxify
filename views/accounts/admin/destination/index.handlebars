@@ -1,34 +1,34 @@
-<h3>Categories</h3>
+<h3>Destinations</h3>
 {{> admin/flash_msgs}}
 
 <div class="row">
     <div class="col-md-6">
-        <form method="post" action="/admin/categories/create" id="create-form">
+        <form method="post" action="/admin/destinations/create" id="create-form">
 
             <div class="form-group">
-                <label for="name">Category Name</label>
+                <label for="name">Destination Name</label>
                 <input  class="form-control"required autofocus type="text" placeholder="title" name="title" id="name">
             </div>
 
             <div class="form-group">
-                <button type="submit" class="btn btn-success">Create Category</button>
+                <button type="submit" class="btn btn-success">Create Destination</button>
             </div>
         </form>
 
         <div class="form-group">
             <input  type="checkbox" name="" id="gen-dummy">
-            <label for="gen-dummy" class="form-check-label">Generate Dummy Categories</label>
+            <label for="gen-dummy" class="form-check-label">Generate Dummy Destinations</label>
         </div>
 
 
-        <form method="post" action="/admin/categories/dummy" id="dummy-form" >
+        <form method="post" action="/admin/destinations/dummy" id="dummy-form" >
             <div class="form-group">
-                <label for="number">Number of Categories</label>
+                <label for="number">Number of Destinations</label>
                 <input  class="form-control"required type="number" placeholder="Number" name="number" id="number">
             </div>
 
             <div class="form-group">
-                <button type="submit" class="btn btn-success">Generate Dummy Categories</button>
+                <button type="submit" class="btn btn-success">Generate Dummy Destinations</button>
             </div>
         </form>
     </div> 
@@ -44,15 +44,15 @@
             </thead>
 
             <tbody>
-        {{#if categories}}       
-             {{#each categories}}
+        {{#if destinations}}       
+             {{#each destinations}}
                    <tr>  
                     <td class="title">{{title}}</td>
                     <td>{{generate_date date 'MMM-Do-Y'}} </td>
-                    <td><a class="btn btn-success edit" rel="{{title}}" href="/admin/categories/{{id}}/edit" id="btn-edit">Edit</a></td>
-                    {{!-- <td><a class="btn btn-danger" href="/admin/categories/{{id}}/delete">Delete</a></td> --}}
+                    <td><a class="btn btn-success edit" rel="{{title}}" href="/admin/destinations/{{id}}/edit" id="btn-edit">Edit</a></td>
+                    {{!-- <td><a class="btn btn-danger" href="/admin/destinations/{{id}}/delete">Delete</a></td> --}}
                     <td>
-                        <form action="/admin/categories/{{id}}/delete?_method=DELETE" method="POST">
+                        <form action="/admin/destinations/{{id}}/delete?_method=DELETE" method="POST">
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                     </td>    
@@ -60,7 +60,7 @@
 
             {{/each}}
         {{else}}
-            <div class="alert alert-success">No Category to display</div>
+            <div class="alert alert-success">No Destination to display</div>
         {{/if}}    
             </tbody>
         </table>
@@ -71,7 +71,7 @@
     <p class="lead"> </p>
     <form id="editing" method="post" action="">
             <div class="form-group">
-                <label for="edit_title">Category Name</label>
+                <label for="edit_title">Destination Name</label>
                 <input class="form-control" type="text" value="" name="title" id="edit_title">
             </div>
 
@@ -123,7 +123,7 @@
         let action = $(this).attr('href')
         $('#edit_title').attr('value', title);
         $('#editing').attr('action', action);
-        $('.lead').html(`Edit Category | ${title}`)
+        $('.lead').html(`Edit Destination | ${title}`)
         $('#dummy-form').fadeOut('slow');
         $('#edit-form').fadeIn('slow');
         console.log(title)

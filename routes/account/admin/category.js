@@ -1,9 +1,9 @@
 const express = require('express'),
     app = express(),
     router = express.Router(),
-    Category = require('../../models/Category'),
+    Category = require('../../../models/Category'),
     faker = require('faker'),
-    {userAuth} = require('../../helpers/authenticate');
+    {userAuth} = require('../../../helpers/authenticate');
 
 
 
@@ -21,7 +21,7 @@ router.all('/*',  (req, res, next)=>{
 router.get('/', (req, res)=>{
     Category.find()
     .then(categories=>{
-     res.render('admin/category/index', {categories: categories})
+     res.render('accounts/admin/category', {categories: categories})
     })
     .catch(err => console.log(err))
 

@@ -1,0 +1,130 @@
+
+ <!-- dROPZONE Externals -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/dropzone.js"></script>
+<!--  -->
+
+
+<div class="row">
+    <div class="col-md-8">
+            <div class="lead">Upload Media(s)</div>
+            <form action="/admin/media/create" method="post" class="dropzone" id="my-awesome-dropzone" enctype="multipart/form-data">
+            </form>
+    </div>
+
+
+    <div class="col-md-4">
+        <form action="/admin/department/multiaction" method="post" id="del_form">
+
+            <div class="form-group multi_action">
+            <div class="row">
+                <div class="col-md-6">
+                    <select name="action" id="" class="form-control">
+                    <option value="delete">Delete</option>
+                </select>
+                </div>
+
+                <div class="col-md-6">
+                <button type="submit" class="btn btn-success multi_action"><i class="fa fa-thumbs-up"></i> Perform Operation</button>
+                </div>
+            </div>
+            
+            </div>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                      <th><input type="checkbox"  id="checkbox"></th>
+                    <th>Media</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {{#if medias}}
+                  {{#each medias}}
+                  <tr>
+                       <td><input type="checkbox" name="checkboxes[]"  value="{{id}}" class="checkboxes"></td>
+</form>
+                    <td><img src="/uploads/{{file}}" width="100" alt=""></td>
+                    <td><a href="/admin/users/delete/{{id}}" class="btn btn-danger"><i class="fa fa-remove"></i> Delete</a></td>
+                  </tr>  
+                  {{/each}}
+               {{else}}
+                 <div class="alert alert-success">No Media to display</div>
+               {{/if}}
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+
+
+
+
+
+
+<style>
+  .multi_action{
+    display: none;
+  }
+</style>
+
+<script src="/admin/js/jquery.js"></script>
+<script src="/home/vendor/sweetalert.min.js"></script>
+
+
+<script>
+  $('#checkbox').click(function(e){
+
+      if(this.checked){
+        $('.multi_action').fadeIn('slow')
+        $('.checkboxes').each(function(){
+           this.checked = true
+        })
+      }else{
+         $('.multi_action').fadeOut('slow')
+
+        $('.checkboxes').each(function(){
+            this.checked = false
+        })
+      }
+  })
+
+
+
+
+  $('#del_form').submit(function(e){
+    e.preventDefault()
+    let data = $(this).serialize()
+    let action = $(this).attr('action')
+    console.log(data)
+
+    $.ajax({
+      url: action,
+      data: data,
+      type: 'Post',
+       cache: false,
+      success: function(response){
+          if(!response.error){
+            $('.multi_action').fadeOut('slow')
+            $('.checkboxes').each(function(){
+                this.checked = false
+            })
+            $('#checkbox').checked = false
+          
+            swal({  //sweetalert.js library
+              title:  `Delete Success`,
+              text: `Kudos! You've successfully performed operation on marked medias. `,
+              icon: "success",    
+              timer: 5500,
+              closeOnClickOutside: false  
+            });
+
+          }
+      }
+
+    })
+  })
+</script>
