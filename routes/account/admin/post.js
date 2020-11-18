@@ -160,11 +160,12 @@ router.put('/:id/update',  (req, res)=>{
         }
 
         // handling multi_files
-        let multi_images = [post.multi_files];
+        let multi_images_fromDB = post.multi_files;
         if(!isEmpty(req.files.multi_files)){
+            multi_images_empty = [];
             req.files.multi_files.forEach(single_file=>{
                 single_image = Date.now() + '-' + single_file.name
-                multi_images.push(single_image)
+                multi_images_empty.push(single_image)
                 let dirUpload = './public/uploads/'
                 single_file.mv(dirUpload + single_image, err=>{
                     if(err) throw err;
@@ -179,6 +180,10 @@ router.put('/:id/update',  (req, res)=>{
                     })
                 }
             })
+            post.multi_files.pull()
+            post.multi_files = multi_images_empty;  // When multiple images are selected
+        }else{
+            post.multi_files = multi_images_fromDB;  // When multiple images are not selected
         }
     
         post.title = req.body.title;
@@ -187,7 +192,6 @@ router.put('/:id/update',  (req, res)=>{
         post.category = req.body.category;
         post.body = req.body.body;
         post.file = filename;
-        multi_files: multi_images,
         // post.user =  req.user.id;
         post.user =  '5fb26dd6794fc32960e640c3';
         post.save()

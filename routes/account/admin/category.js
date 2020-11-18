@@ -61,7 +61,7 @@ router.post('/dummy', (req, res)=>{
 
 
 // update
-router.put('/:id/edit', (req, res)=>{
+router.put('/:id/update', (req, res)=>{
     Category.findOne({_id: req.params.id})
     .then(category =>{
         category.title = req.body.title

@@ -76,7 +76,8 @@ router.post('/dummy', (req, res)=>{
 
     for(let i = 0; i < req.body.number; i++){
         const newContact = new Contact()
-        newContact.user = req.user.id
+        // newContact.user = req.user.id
+        newContact.user = '5fb26dd6794fc32960e640c3'
         newContact.subject = faker.random.word()
         newContact.message = faker.lorem.sentence()
         newContact.save()

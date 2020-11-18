@@ -49,7 +49,7 @@
                    <tr>  
                     <td class="title">{{title}}</td>
                     <td>{{generate_date date 'MMM-Do-Y'}} </td>
-                    <td><a class="btn btn-success edit" rel="{{title}}" href="/admin/categories/{{id}}/edit" id="btn-edit">Edit</a></td>
+                    <td><a class="btn btn-success edit" rel="{{title}}" href="/admin/categories/{{id}}/update?_method=PUT" id="btn-edit">Edit</a></td>
                     {{!-- <td><a class="btn btn-danger" href="/admin/categories/{{id}}/delete">Delete</a></td> --}}
                     <td>
                         <form action="/admin/categories/{{id}}/delete?_method=DELETE" method="POST">

@@ -118,7 +118,15 @@ app.use('/admin/posts', admin_posts)
 
 
 const admin_destination = require('./routes/account/admin/destination');
-app.use('/admin/destination', admin_destination)
+app.use('/admin/destinations', admin_destination)
+
+
+const admin_media = require('./routes/account/admin/media');
+app.use('/admin/media', admin_media)
+
+
+const admin_contact = require('./routes/account/admin/contact');
+app.use('/admin/contact', admin_contact)
 
 // 
 

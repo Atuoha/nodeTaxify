@@ -93,12 +93,34 @@
           </a>
         </li>
 
+         
+
          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Contact">
-          <a class="nav-link" href="/admin/contact">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#contact" data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-phone"></i>
             <span class="nav-link-text">Contact</span>
           </a>
+          <ul class="sidenav-second-level collapse" id="contact">
+            <li>
+              <a href="/admin/contact">All Contact</a>
+            </li>
+
+            {{#if loggedUser}}
+              <li>
+                <a href="/admin/contact/loggedUser/{{loggedUser.id}}">My Contact</a>
+              </li>
+            {{/if}}
+
+              <li>
+              <a href="/admin/contact/create">Create Contact</a>
+            </li>
+
+            <li>
+              <a href="/admin/contact/dummy">Dummy Contact</a>
+            </li>
+          </ul>
         </li>
+     
     
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="User">

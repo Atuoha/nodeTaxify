@@ -54,7 +54,7 @@
                     <div class="form-row">
                         <div class="col-md-6">
                             <label for="exampleInputLastName">Imagery</label>
-                            <input accept="image/*" value="{{post.imagery}}" name="file" class="form-control" id="inpFile"  validate type="file" aria-describedby="nameHelp" >
+                            <input accept="image/*"  name="file" class="form-control" id="inpFile"  validate type="file" aria-describedby="nameHelp" >
                         </div>
 
                         <div class="col-md-6">
@@ -78,7 +78,13 @@
                 <div class="form-group">
                   <div class="col-md-6">
                             <label for="exampleInputLastName">Featuring image</label>
-                            <input accept="image/*" name="multi_file" multiple class="form-control" id="inpFile" required validate type="file" aria-describedby="nameHelp" >
+                            <input accept="image/*" name="multi_files" multiple class="form-control" id="inpFile" required validate type="file" aria-describedby="nameHelp" >
+
+                            
+
+                            {{#each post.multi_files}}
+                                <img src="/uploads/{{this}}" width="70" alt="">
+                            {{/each}}
                     </div>
                 </div>
 

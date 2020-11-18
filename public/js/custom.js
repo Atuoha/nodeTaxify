@@ -55,7 +55,7 @@ document.getElementById('plan').value = 'Classic Plan';
 
 })
 
-
+// booking
 $('#distance_form').submit(function(e){
     e.preventDefault();
     let data = $(this).serialize();
@@ -72,8 +72,6 @@ $('#distance_form').submit(function(e){
     $('#booking_from').html(from)
     $('#booking_plan').html(plan)
     $('#booking_time').html(`${date} | ${time}`)
-
-
 
 
     $('#distance_form').fadeOut('fast');
@@ -108,6 +106,40 @@ $('#distance_form').submit(function(e){
     // $('select').selectpicker();
 
    
+    // multi_action     
+  $('#del_form').submit(function(e){
+    e.preventDefault()
+    let data = $(this).serialize()
+    let action = $(this).attr('action')
+    console.log(data)
+
+    $.ajax({
+      url: action,
+      data: data,
+      type: 'Post',
+       cache: false,
+      success: function(response){
+          if(!response.error){
+            $('.multi_action').fadeOut('slow')
+            $('.checkboxes').each(function(){
+                this.checked = false
+            })
+            $('#checkbox').checked = false
+          
+            swal({  //sweetalert.js library
+              title:  `Delete Success`,
+              text: `Kudos! You've successfully performed operation on marked contacts. `,
+              icon: "success",    
+              timer: 5500,
+              closeOnClickOutside: false  
+            });
+
+          }
+      }
+
+    })
+  })
+
 
  })
 

@@ -21,7 +21,7 @@ router.all('/*',  (req, res, next)=>{
 router.get('/', (req, res)=>{
     Destination.find()
     .then(destinations=>{
-     res.render('admin/destination', {destinations: destinations})
+     res.render('accounts/admin/destination', {destinations: destinations})
     })
     .catch(err => console.log(err))
 
@@ -61,7 +61,7 @@ router.post('/dummy', (req, res)=>{
 
 
 // update
-router.put('/:id/edit', (req, res)=>{
+router.put('/:id/update', (req, res)=>{
     Destination.findOne({_id: req.params.id})
     .then(destination =>{
         destination.title = req.body.title
