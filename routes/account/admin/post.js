@@ -143,7 +143,7 @@ router.put('/:id/update',  (req, res)=>{
 
         // handling single file
         let filename = post.file;
-        if(!isEmpty(req.files.file)){
+        if(req.files.file){
             let file = req.files.file
             filename = Date.now() + '-' + file.name
             let dirUpload = './public/uploads/'
@@ -161,8 +161,8 @@ router.put('/:id/update',  (req, res)=>{
 
         // handling multi_files
         let multi_images_fromDB = post.multi_files;
-        if(!isEmpty(req.files.multi_files)){
-            multi_images_empty = [];
+        let multi_images_empty = [];
+        if(req.files.multi_files){    
             req.files.multi_files.forEach(single_file=>{
                 single_image = Date.now() + '-' + single_file.name
                 multi_images_empty.push(single_image)
@@ -180,7 +180,7 @@ router.put('/:id/update',  (req, res)=>{
                     })
                 }
             })
-            post.multi_files.pull()
+            post.multi_files = 'empty'; // assigning a string to the array in db
             post.multi_files = multi_images_empty;  // When multiple images are selected
         }else{
             post.multi_files = multi_images_fromDB;  // When multiple images are not selected
@@ -201,7 +201,7 @@ router.put('/:id/update',  (req, res)=>{
          })
          .catch(err => console.log(`Updating Error from: ${err}`))      
     })
-    .catch(err=> console.log(`Error from: ${err}`));   
+    .catch(err=> console.log(`Can't find post due to error from: ${err}`));   
 })
 
 
