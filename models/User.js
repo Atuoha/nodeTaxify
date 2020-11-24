@@ -5,7 +5,6 @@ const UserSchema = new Schema({
 
     fullname:{
         type: String,
-        required: true
     },
 
 
@@ -15,9 +14,13 @@ const UserSchema = new Schema({
     },
 
 
+    phone:{
+        type: String,
+    },
+
+
     file:{
         type: String,
-        required: true
     },
 
 
@@ -29,11 +32,13 @@ const UserSchema = new Schema({
 
     status:{
         type: String,
+        default: 'active'
     },
 
 
     role:{
         type: String,
+        default: 'subscriber'
     },
 
     

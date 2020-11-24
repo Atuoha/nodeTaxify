@@ -176,10 +176,8 @@ $('#booking_form').submit(function(e){
 
 
     
-   $('#register_form').submit() 
+
     
-
-
 })
 
 
