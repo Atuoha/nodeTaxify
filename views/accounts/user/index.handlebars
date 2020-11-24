@@ -10,7 +10,9 @@
                     </div>
 
                     <div class="col-md-8 mt-3 text-white text-center">
-                       <h2>10%</h2>
+                       <h2>
+                           {{status}}   
+                       </h2>
                         <h4>Profile</h4>
                     </div>
                 </div>
@@ -24,12 +26,12 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4">
-                        <i class="fa fa-file fa-4x text-white"></i>
+                        <i class="fa fa-address-book-o fa-4x text-white"></i>
                     </div>
 
                      <div class="col-md-8 mt-3 text-white text-center">
-                       <h2>{{posts}}</h2>
-                        <h4>Posts</h4>
+                       <h2>{{testimonyCount}}</h2>
+                        <h4>Testimony</h4>
                     </div>
                 </div>
             </div>
@@ -42,11 +44,11 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4">
-                        <i class="fa fa-phone fa-4x text-white"></i>
+                        <i class="fa fa-address-book fa-4x text-white"></i>
                     </div>
 
                      <div class="col-md-8 mt-3 text-white text-center">
-                       <h2>{{categories}} </h2>
+                       <h2>{{contactCount}} </h2>
                         <h4>Contacts</h4>
                     </div>
                 </div>
@@ -64,7 +66,7 @@
                     </div>
 
                      <div class="col-md-8 mt-3 text-white text-center">
-                       <h2>{{comments}} </h2>
+                       <h2>{{bookingCount}}</h2>
                         <h4>Bookings</h4>
                     </div>
                 </div>
@@ -95,10 +97,10 @@ var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ["Users", "Posts", "Comments", "Replies", "Categories"],
+        labels: ["Testimony", "Contact", "Booking"],
         datasets: [{
-            label: 'Data From CMS',
-            data: [ {{users}},  {{posts}},  {{comments}}, {{replies}}, {{categories}} ],
+            label: 'Data From nodeTaxify',
+            data: [ {{testimonyCount}},  {{contactCount}},  {{bookingCount}}],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',

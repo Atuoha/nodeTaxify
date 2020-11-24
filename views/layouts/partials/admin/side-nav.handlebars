@@ -41,11 +41,34 @@
           </a>
         </li>
 
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookings">
-          <a class="nav-link" href="/admin/booking">
+         
+
+           
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Booking">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#booking" data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-taxi"></i>
-            <span class="nav-link-text">Bookings</span>
+            <span class="nav-link-text">Booking</span>
           </a>
+          <ul class="sidenav-second-level collapse" id="booking">
+            <li>
+              <a href="/admin/booking">All Booking</a>
+            </li>
+
+
+             <li>
+              <a href="/admin/booking/cancelled">Cancelled Booking</a>
+            </li>
+
+              <li>
+                <a href="/admin/booking/{{loggedUser.id}}/loggedUser">My Booking</a>
+              </li>
+
+              <li>
+              <a href="/admin/booking/create">Create Booking</a>
+            </li>
+
+
+          </ul>
         </li>
 
 
@@ -84,6 +107,12 @@
         </li>
 
 
+         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Testimony">
+          <a class="nav-link" href="/admin/testimonies">
+            <i class="fa fa-fw fa-address-book-o"></i>
+            <span class="nav-link-text">Testimony</span>
+          </a>
+        </li>
 
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Destinations">
@@ -97,7 +126,7 @@
 
          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Contact">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#contact" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-phone"></i>
+            <i class="fa fa-fw fa-address-book"></i>
             <span class="nav-link-text">Contact</span>
           </a>
           <ul class="sidenav-second-level collapse" id="contact">

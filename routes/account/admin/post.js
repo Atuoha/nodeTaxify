@@ -102,8 +102,8 @@ router.post('/create', (req, res)=>{
             file: filename,
             multi_files: multi_images,
             body: req.body.body,
-            // user: req.user.id,
-            user: '5fb26dd6794fc32960e640c3',
+            user: req.user.id,
+            // user: '5fb26dd6794fc32960e640c3',
             date: new Date(),
         }
     )
@@ -192,8 +192,8 @@ router.put('/:id/update',  (req, res)=>{
         post.category = req.body.category;
         post.body = req.body.body;
         post.file = filename;
-        // post.user =  req.user.id;
-        post.user =  '5fb26dd6794fc32960e640c3';
+        post.user =  req.user.id;
+        // post.user =  '5fb26dd6794fc32960e640c3';
         post.save()
          .then(updatedPost =>{
             req.flash('success_msg', `Post has successfully been updated. New title is ${updatedPost.title}`)
@@ -263,8 +263,8 @@ router.post('/generate-fake-posts', (req, res)=>{
         post.file = 'img_place.png';
         post.file = ['img_place.png','img_place.png'];
         post.slug = faker.name.title();
-        // post.user = req.user.id;
-        post.user = '5fb26dd6794fc32960e640c3';
+        post.user = req.user.id;
+        // post.user = '5fb26dd6794fc32960e640c3';
 
         post.date = new Date()
 

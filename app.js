@@ -1,3 +1,10 @@
+if(process.env.NODE_ENV !== 'production'){
+    require('dotenv').config()
+}
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY
+const StripePubKey = process.env.STRIPE_PUBLISHABLE_KEY
+
+
 const express = require('express'),
     app = express(),
     path = require('path'),
@@ -85,23 +92,38 @@ app.use( (req, res, next)=>{
 })
 
 
+// const stripe = require('stripe')(stripeSecretKey);
+
+// const sessions = await stripe.checkout.sessions.create({
+//   payment_method_types: ['card'],
+//   mode: 'setup',
+//   success_url: 'https://example.com/success?session_id={CHECKOUT_SESSION_ID}',
+//   cancel_url: 'https://example.com/cancel',
+// });
+
 
 // override with POST having ?_method=DELETE
 app.use(methodOverride('_method'))
 
 
 // Routes
-// --home
-const home = require('./routes/home/home')
+// ROUTES --home
+const home = require('./routes/home/index')
 app.use('/', home)
 
-// logs
+// logs 
 const logs = require('./routes/home/logs');
 app.use('/logs', logs);
 
 
-// admin SECTION
-const admin = require('./routes/account/admin/admin');
+
+
+// accounts Routes
+
+
+
+// admin ROUTES SECTION
+const admin = require('./routes/account/admin/index');
 app.use('/admin', admin)
 
 
@@ -128,6 +150,14 @@ app.use('/admin/media', admin_media)
 const admin_contact = require('./routes/account/admin/contact');
 app.use('/admin/contact', admin_contact)
 
+
+const admin_booking = require('./routes/account/admin/booking');
+app.use('/admin/booking', admin_booking)
+
+
+const admin_testimonies = require('./routes/account/admin/testimony');
+app.use('/admin/testimonies', admin_testimonies)
+
 // 
 
 
@@ -135,25 +165,29 @@ app.use('/admin/contact', admin_contact)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// user SECTION
-const user = require('./routes/account/user/user');
+// user ROUTES SECTION
+const user = require('./routes/account/user/index');
 app.use('/user', user)
+
+
+const user_contact = require('./routes/account/user/contact');
+app.use('/user/contact', user_contact)
+
+
+const user_booking = require('./routes/account/user/booking');
+app.use('/user/booking', user_booking)
+
+
+const user_testimonies = require('./routes/account/user/testimony');
+app.use('/user/testimonies', user_testimonies)
+
+
+const user_profile = require('./routes/account/user/profile');
+app.use('/user/profile', user_profile)
+
+// 
+
+
 
 
 app.listen(port, ()=>{

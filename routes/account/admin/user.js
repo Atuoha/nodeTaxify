@@ -21,6 +21,14 @@ router.get('/', (req, res)=>{
     .catch(err=>console.log(err))
 })
 
+router.get('/:id/profile', (req, res)=>{
+    User.findOne({_id: req.params.id})
+    .then(profile=>{
+        res.render('accounts/admin/profile', {profile: profile})
+    })
+    .catch(err=>console.log(err))
+})
+
 
 router.get('/create', (req, res)=>{
     res.render('accounts/admin/users/create');

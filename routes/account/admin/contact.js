@@ -55,16 +55,13 @@ router.post('/create', (req, res)=>{
 
     const newContact = new Contact()
     newContact.user = req.user.id
+    // newContact.user = '5fb26dd6794fc32960e640c3'
     newContact.subject = req.body.subject
     newContact.message = req.body.message
     newContact.save()
     .then(savedContact=>{
         req.flash('success_msg', 'Contact has been created successfully :)')
-        if(loggedUser.role === 'Admin'){
-            res.redirect('/admin/contact')
-        }else{
-            res.redirect(`/admin/contact/loggedUser/${req.user.id}`)
-        }
+        res.redirect('/admin/contacts')
     })
     .catch(err=>console.log(err))
 
@@ -76,8 +73,8 @@ router.post('/dummy', (req, res)=>{
 
     for(let i = 0; i < req.body.number; i++){
         const newContact = new Contact()
-        // newContact.user = req.user.id
-        newContact.user = '5fb26dd6794fc32960e640c3'
+        newContact.user = req.user.id
+        // newContact.user = '5fb26dd6794fc32960e640c3'
         newContact.subject = faker.random.word()
         newContact.message = faker.lorem.sentence()
         newContact.save()
@@ -100,11 +97,7 @@ router.post('/update/:id', (req, res)=>{
         contact.save()
         .then(savedContact=>{
             req.flash('success_msg', 'Contact has been updated successfully :)')
-            if(loggedUser.role === 'Admin'){
-                res.redirect('/admin/contact')
-            }else{
-                res.redirect(`/admin/contact/loggedUser/${req.user.id}`)
-            }
+            res.redirect('/admin/contact')
         })
         .catch(err=>console.log(err))
     })
@@ -119,11 +112,7 @@ router.get('/delete/:id', (req, res)=>{
         contact.delete()
         .then(response=>{
             req.flash('success_msg', `${contact.subject} has been deleted successfully :)`)
-            if(loggedUser.role === 'Admin'){
-                res.redirect('/admin/contact')
-            }else{
-                res.redirect(`/admin/contact/loggedUser/${req.user.id}`)
-            }
+            res.redirect('/admin/contact')
         })
         .catch(err=>console.log(err))
     })
@@ -143,11 +132,7 @@ router.post('/multiaction', (req, res)=>{
             contact.delete()
             .then(response=>{
                 req.flash('success_msg', `${contact.subject} has been deleted successfully :)`)
-                if(loggedUser.role === 'Admin'){
-                    res.redirect('/admin/contact')
-                }else{
-                    res.redirect(`/admin/contact/loggedUser/${req.user.id}`)
-                }
+                res.redirect('/admin/contact')
             })
             .catch(err=>console.log(err)) 
         })        

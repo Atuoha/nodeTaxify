@@ -18,7 +18,6 @@ basic.addEventListener('click',function(e){
 
   // This hides the check box of the selected input
   
-
   // This addes a value to the hidden input box
   document.getElementById('plan').value = 'Basic Plan';
 })
@@ -38,7 +37,7 @@ deluxe.addEventListener('click',function(e){
 document.getElementById('plan').value = 'Deluxe Plan';
 
 })
-classic
+// classic
 classic.addEventListener('click',function(e){
   console.log('classic is clicked')
 
@@ -54,93 +53,141 @@ classic.addEventListener('click',function(e){
 document.getElementById('plan').value = 'Classic Plan';
 
 })
+})
 
+
+// processing payment
+$('#process_btn').click(function(e){
+  e.preventDefault()
+      // collecting data
+      let to = $('#to_place').val();
+      let from = $('#from_place').val();
+      let plan = $('#plan').val();
+      let date = $('#datepicker2').val();
+      let time = $('#timepicker1').val();
+      let price = $('#price').attr('value')
+  
+      if(plan == ''){
+        swal({  //sweetalert.js library
+          title:  `No Plan Selected`,
+          text: `Error! You can't proceed without choosing a booking plan. Select one! `,
+          icon: "error",    
+          timer: 5500,
+          closeOnClickOutside: false  
+        });
+      }else{
+            // assigning data
+        $('#booking_to').html(to)
+        $('#booking_from').html(from)
+        $('#booking_plan').html(plan)
+        $('#booking_price').html(price)
+        $('#booking_time').html(`${date} | ${time}`)
+  
+  
+        $('.form-section').fadeOut('fast');
+        $('.header-right').css('background-color', 'white')
+        $('.loading').fadeIn('fast');
+  
+        setInterval( ()=>{     
+            $('.loading').fadeOut('fast');
+            $('#booking_details').fadeIn('slow')     
+            $('.booking_summary').css('display','none')
+        }, 3000)
+
+      }
+  
+})
+
+
+
+
+  $('.custom-control-input').click(function(e){
+    let attr = $(this).attr('value')
+    let to  = $('#to_place').val()
+    let from  = $('#from_place').val()
+
+    let price = ''
+    if(attr == 'deluxe'){
+      price = 200
+    }else if(attr == 'classic'){
+      price = 150
+    }else{
+      price = 100
+    }
+
+    // if(to !== '' && from !== ''){
+      $('#price').attr('value', '$'+price)
+      $('#price').fadeIn('slow')
+    // }
+    
+  })
+
+
+
+
+  
 // booking
-$('#distance_form').submit(function(e){
-    e.preventDefault();
-    let data = $(this).serialize();
+$('#booking_form').submit(function(e){
+  e.preventDefault();
+  let data = $(this).serialize();
 
-    // collecting data
-    let to = $('#to_place').val();
-    let from = $('#from_place').val();
-    let plan = $('#plan').val();
-    let date = $('#datepicker2').val();
-    let time = $('#timepicker1').val();
+  let priceElement = $('#price').attr('value')
+  let price = parseFloat(priceElement.replace('$', '')) * 100
 
-    // assigning data
-    $('#booking_to').html(to)
-    $('#booking_from').html(from)
-    $('#booking_plan').html(plan)
-    $('#booking_time').html(`${date} | ${time}`)
+  var stripe = Stripe(stripePublicKey);
+  stripe.redirectToCheckout({
+    lineItems: [{
+      // Define the product and price in the Dashboard first, and use the price
+      // ID in your client-side code.
+      price: price
+    }],
+    mode: 'payment',
+    successUrl: 'https://www.example.com/success',
+    cancelUrl: 'https://www.example.com/cancel'
+  });
 
-
-    $('#distance_form').fadeOut('fast');
-    $('.loading').fadeIn('fast');
-
-    setTimeout( ()=>{     
-        $('.loading').fadeOut('fast');
-        $('#booking_details').fadeIn('fast');
-    }, 3000)
 
     $.ajax({
-        url: '',
+        url: '/admin/booking/create',
         type: 'post',
         data: data,
         cache: false,
         success: (data=>{
 
             if(!data.error){
-                $('#booking_details').fadeIn('slow')
-                $('.booking_summary').css('display','none')
-            }
-        })
-    })
-})
-
-
-
- //   
-//  $('select').selectpicker();
-    $('#timepicker1').timepicker();
-
-    // $('select').selectpicker();
-
-   
-    // multi_action     
-  $('#del_form').submit(function(e){
-    e.preventDefault()
-    let data = $(this).serialize()
-    let action = $(this).attr('action')
-    console.log(data)
-
-    $.ajax({
-      url: action,
-      data: data,
-      type: 'Post',
-       cache: false,
-      success: function(response){
-          if(!response.error){
-            $('.multi_action').fadeOut('slow')
-            $('.checkboxes').each(function(){
-                this.checked = false
-            })
-            $('#checkbox').checked = false
-          
-            swal({  //sweetalert.js library
-              title:  `Delete Success`,
-              text: `Kudos! You've successfully performed operation on marked contacts. `,
+              swal({  //sweetalert.js library
+              title:  `Booking Success`,
+              text: `Kudos! You've successfully booked a taxi with nodeTaxify. Enjoy the ride! `,
               icon: "success",    
               timer: 5500,
               closeOnClickOutside: false  
             });
-
+          }else{
+            swal({  //sweetalert.js library
+              title:  `Booking Error`,
+              text: `Opps! Due to reasons you were unable to complete your booking process. Try again!. `,
+              icon: "error",    
+              timer: 5500,
+              closeOnClickOutside: false  
+            });
           }
-      }
-
+        })
     })
-  })
 
 
- })
+    
+   $('#register_form').submit() 
+    
 
+
+})
+
+
+
+//   
+//  $('select').selectpicker();
+  $('#timepicker1').timepicker();
+  $('#datepicker2').datepicker();
+
+ 
 

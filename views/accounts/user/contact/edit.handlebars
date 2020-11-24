@@ -1,0 +1,15 @@
+<form action="/user/contact/update/{{contact.id}}" method="post">
+    <div class="form-group">
+        <label for="" class="control-label">Subject</label>
+        <input type="text" name="subject" class="form-control" value="{{contact.subject}}" placeholder="Subject" required autofocus >
+    </div>
+
+    <div class="form-group">
+        <label for="" class="control-label">Message</label>
+        <textarea name="message" id="" cols="5" rows="6" class="form-control" placeholder="Message Here" required>{{contact.message}}</textarea>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Submit Edit</button>
+    </div>
+</form>

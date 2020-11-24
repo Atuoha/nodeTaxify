@@ -9,7 +9,7 @@
 <div class="card ">
     <div class="card-header">Edit a user by filling this form....</div>
       <div class="card-body">
-            <form method="post" id="Edit-user" enctype="multipart/form-data" action="/admin/users/{{user.id}}/update">
+            <form method="post" id="Edit-user" enctype="multipart/form-data" action="/user/profile/{{user.id}}/update?_method=PUT">
                 <div class="form-group">
                     <div class="form-row">
                         <div class="col-md-6">
@@ -32,12 +32,7 @@
                         </div>
                         <div class="col-md-6">
                            <label for="status">Role</label>
-                            <select value="{{user.role}}" class="form-control" name="role" required validate  id="status">
-                                {{#select user.role}}
-                                <option value="Admin">Admin</option>
-                                <option value="Subscriber">Subscriber</option>
-                                {{/select}}
-                            </select> 
+                            <input  class="form-control" readonly value="{{profile.role}}">
                         </div>
                     </div>
                 </div>
@@ -73,7 +68,7 @@
                 
                 <br>
                 <div class="form-group">
-                    <button class="btn btn-primary" type="submit">Update User</button>
+                    <button class="btn btn-success" type="submit">Update User</button>
                 </div>
 
 

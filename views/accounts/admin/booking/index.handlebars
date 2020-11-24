@@ -1,0 +1,103 @@
+<h3>Bookings</h3>
+{{> admin/flash_msgs}}
+
+
+
+<form action="/admin/contact/multiaction" method="post" id="del_form">
+
+<div class="form-group multi_action col-md-4">
+  <div class="row">
+    <div class="col-md-6">
+        <select name="action" id="" class="form-control">
+          <option value="delete">Delete Records</option>
+          <option value="cancel">Cancel Records</option>
+
+      </select>
+    </div>
+
+    <div class="col-md-6">
+      <button type="submit" class="btn btn-success multi_action"><i class="fa fa-thumbs-up"></i> Perform Operation</button>
+    </div>
+  </div>
+  
+</div>
+
+
+<table class="table table-striped table-responsive">
+    <thead>
+       <tr>
+        <th><input type="checkbox"  id="checkbox"></th>
+           <th>Name</th>
+           <th>Email</th>
+           <th>image</th>
+           <th>Location</th>
+           <th>Destination</th>
+           <th>Date</th>
+           <th>Time</th>
+           <th>Plan</th>
+           <th>Price</th>
+           <th>Status</th>
+           <th>Received</th>
+           <th>Actions</th>
+       </tr>
+    </thead>
+
+    <tbody>
+     {{#if bookings}}
+      
+        {{#each bookings}}
+                <tr>
+                     <td><input type="checkbox" name="checkboxes[]"  value="{{id}}" class="checkboxes"></td>
+</form>
+                    <td>{{user.fullname}}</td>
+                    <td>{{user.email}}</td>
+                     {{#if user.file}}
+                        <td><img src="/uploads/{{user.file}}" class="rounded-circle" alt="" width="40"></td>
+                        {{else}}
+                        <td><img src="/uploads/default.png" alt="" width="40"></td>
+                    {{/if}}
+                    <td>{{location}}</td>
+                    <td>{{destination}}</td>
+                    <td>{{booking_date}}</td>
+                    <td>{{booking_time}}</td>
+                    <td>{{plan}}</td>
+                    <td>{{price}}</td>
+                    <td>{{status}}</td>
+                    <td>{{generate_date date 'MMM-Do-Y'}}</td>
+                    <td><a href="/admin/booking/edit/{{id}}" class="btn btn-success"><i class="fa fa-pencil"></i></a></td>
+                    <td><a href="/admin/booking/show/{{id}}" class="btn btn-warning"><i class="fa fa-eye"></i> </a></td>
+                    <td><a href="/admin/booking/cancel/{{id}}" class="btn btn-info"><i class="fa fa-thumbs-down "></i></a></td>
+                    <td>
+                        <form action="admin/booking/{{id}}/delete?_method=DELETE" method="post">
+                            <button type="submit" class="btn btn-danger"><i class="fa fa-remove"></i></button>
+                        </form>
+                    </td>
+
+                    {{!-- <td><a href="/admin/contact/delete/{{id}}" class="btn btn-danger"><i class="fa fa-remove"></i> Delete</a></td> --}}
+                </tr>
+        {{/each}}
+
+      {{else}}
+        <div class="alert alert-success">No booking to display</div>
+
+     {{/if}}      
+    </tbody>
+</table>
+
+
+
+
+<style>
+  .multi_action{
+    display: none;
+  }
+</style>
+
+<script src="/admin/js/jquery.js"></script>
+<script src="/home/vendor/sweetalert.min.js"></script>
+
+
+
+
+
+

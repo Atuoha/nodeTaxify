@@ -7,7 +7,7 @@
 							<h1 class="text-white">
 								Contact Us				
 							</h1>	
-							<p class="text-white link-nav"><a href="index.html">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href="contact.html"> Contact Us</a></p>
+							<p class="text-white link-nav"><a href="index.html">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href=""> Contact Us</a></p>
 						</div>	
 					</div>
 				</div>
@@ -24,9 +24,9 @@
 									<span class="lnr lnr-home"></span>
 								</div>
 								<div class="contact-details">
-									<h5>Binghamton, New York</h5>
+									<h5>Coding Blocks, PHC</h5>
 									<p>
-										4343 Hinkle Deegan Lake Road
+										40b Coding Blocks Avenue
 									</p>
 								</div>
 							</div>
@@ -35,8 +35,8 @@
 									<span class="lnr lnr-phone-handset"></span>
 								</div>
 								<div class="contact-details">
-									<h5>00 (958) 9865 562</h5>
-									<p>Mon to Fri 9am to 6 pm</p>
+									<h5>+234 (000) 0000 000</h5>
+									<p>Mon to Fri 8am to 5pm</p>
 								</div>
 							</div>
 							<div class="single-contact-address d-flex flex-row">
@@ -44,18 +44,23 @@
 									<span class="lnr lnr-envelope"></span>
 								</div>
 								<div class="contact-details">
-									<h5>support@colorlib.com</h5>
+									<h5>support@nodeTaxify.com</h5>
 									<p>Send us your query anytime!</p>
 								</div>
 							</div>														
 						</div>
 						<div class="col-lg-8">
-							<form class="form-area contact-form text-right" id="myForm" action="mail.php" method="post">
+							{{#if loggedUser}}
+							<p id="response" class="text-center"></p>
+							<div class="loading_contact_process text-center">
+								<img src="/img/loading.gif">
+							</div>
+							<form class="form-area text-right" id="contact_form" action="/user/contact/create" method="post">
 								<div class="row">	
 									<div class="col-lg-6 form-group">
-										<input name="name" placeholder="Enter your name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" class="common-input mb-20 form-control" required="" type="text">
+										<input name="name" value="{{loggedUser.fullname}}" placeholder="Enter your name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" class="common-input mb-20 form-control" required="" autofocus="" type="text">
 									
-										<input name="email" placeholder="Enter email address" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" class="common-input mb-20 form-control" required="" type="email">
+										<input name="email" value="{{loggedUser.email}}" placeholder="Enter email address" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" class="common-input mb-20 form-control" required="" type="email">
 
 										<input name="subject" placeholder="Enter subject" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter subject'" class="common-input mb-20 form-control" required="" type="text">
 									</div>
@@ -67,9 +72,53 @@
 										<button class="genric-btn primary" style="float: right;">Send Message</button>											
 									</div>
 								</div>
-							</form>	
+							</form>
+							
+							{{else}}
+							<div class="alert alert-success text-center">You have to login to contact us!</div>
+							{{/if}}
 						</div>
 					</div>
 				</div>	
 			</section>
 			<!-- End contact-page Area -->
+
+
+
+
+
+<script src="/js/vendor/jquery-2.2.4.min.js"></script>
+<script>
+	$('#contact_form').submit(function(e){
+		e.preventDefault()
+		let data = $(this).serialize();
+		let action = $(this).attr('action');
+
+		$.ajax({
+			url: action,
+			type: 'Post',
+			data: data,
+			cache: false,
+			success: (response=>{
+			 	if(!response.error){
+					$('#contact_form').fadeOut('fast')
+					$('.loading_contact_process').fadeIn('slow')
+
+					setInterval( ()=>{
+					$('.loading_contact_process').fadeOut('fast')
+					$('#response').addClass('alert alert-success');
+					$('#response').html('Your message has been sent successfully :)');
+					}, 3000)	
+				}else{
+					$('#response').addClass('alert alert-danger');
+					$('#response').html('Error occured ):');
+				}
+
+			})
+		})
+	})
+</script>
+
+
+
+

@@ -7,7 +7,7 @@
 							<h1 class="text-white">
 								Gallery				
 							</h1>	
-							<p class="text-white link-nav"><a href="index.html">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href="gallery.html"> Gallery</a></p>
+							<p class="text-white link-nav"><a href="index.html">Home </a>  <span class="lnr lnr-arrow-right"></span>  <a href=""> Gallery</a></p>
 						</div>	
 					</div>
 				</div>
@@ -22,24 +22,17 @@
 						<p>Who are in extremely love with eco friendly system.</p>
 					</div>					
 					<div class="row">
-						<div class="col-lg-4 single-gallery">
-							<a href="img/g1.jpg" class="img-gal"><img class="img-fluid" src="img/g1.jpg" alt=""></a>
-							<a href="img/g4.jpg" class="img-gal"><img class="img-fluid" src="img/g4.jpg" alt=""></a>
-							<a href="img/g1.jpg" class="img-gal"><img class="img-fluid" src="img/g1.jpg" alt=""></a>
-							<a href="img/g4.jpg" class="img-gal"><img class="img-fluid" src="img/g4.jpg" alt=""></a>							
-						</div>	
-						<div class="col-lg-4 single-gallery">
-							<a href="img/g2.jpg" class="img-gal"><img class="img-fluid" src="img/g2.jpg" alt=""></a>
-							<a href="img/g5.jpg" class="img-gal"><img class="img-fluid" src="img/g5.jpg" alt=""></a>
-							<a href="img/g2.jpg" class="img-gal"><img class="img-fluid" src="img/g2.jpg" alt=""></a>
-							<a href="img/g5.jpg" class="img-gal"><img class="img-fluid" src="img/g5.jpg" alt=""></a>													
-						</div>	
-						<div class="col-lg-4 single-gallery">
-							<a href="img/g3.jpg" class="img-gal"><img class="img-fluid" src="img/g3.jpg" alt=""></a>
-							<a href="img/g6.jpg" class="img-gal"><img class="img-fluid" src="img/g6.jpg" alt=""></a>
-							<a href="img/g3.jpg" class="img-gal"><img class="img-fluid" src="img/g3.jpg" alt=""></a>
-							<a href="img/g6.jpg" class="img-gal"><img class="img-fluid" src="img/g6.jpg" alt=""></a>
-						</div>				
+						
+						{{#if medias}}
+							{{#each medias}}
+							<div class="col-lg-4 single-gallery">
+								<a href="/uploads/{{file}}" class="img-gal"><img class="img-fluid" src="/uploads/{{file}}" alt=""></a>
+							</div>
+							{{/each}}
+						{{else}}
+						<div class="alert alert-success text-center">No Gallery Photos to display</div>
+						{{/if}}				
+					</div>				
 					</div>
 				</div>	
 			</section>

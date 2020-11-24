@@ -79,8 +79,12 @@ router.put('/:id/update', (req, res)=>{
 router.delete('/:id/delete', (req, res)=>{
     Category.findOne({_id: req.params.id})
     .then(category =>{
-        req.flash('success_msg', `${category.title} has been deleted successfully :)`);
-        res.redirect('/admin/categories')
+        category.delete()
+        .then(response=>{
+            req.flash('success_msg', `${response.title} has been deleted successfully :)`);
+            res.redirect('/admin/categories')
+        })
+        .catch(err=>console.log(err))  
     })
     .catch(err => console.log(err))
 })

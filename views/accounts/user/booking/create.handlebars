@@ -1,0 +1,148 @@
+<h2><i class="fa fa-taxi"></i> Booking</h2>
+
+
+<form action="/admin/booking/create" method="post" id="booking_form">
+ <div class="form-section">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+             <select id="from_place" required class="selectpicker select show-tick form-control" data-width="100%" data-live-search="true" title="From Destination" data-size="4" data-header="From Destination" name="location">
+                 {{#each destinations}}
+                    <option value="{{title}}">{{title}}</option>   
+                 {{/each}}
+             </select>
+            </div> 
+        </div>
+
+
+         <div class="col-md-6">
+            <div class="form-group">
+             <select id="to_place" required class="selectpicker select show-tick form-control"  data-width="100%" data-live-search="true" title="To Destination" data-size="4" data-header="To Destination" name="destination" >
+                 {{#each destinations}}
+                    <option value="{{title}}">{{title}}</option>   
+                 {{/each}}
+             </select>
+            </div> 
+        </div>
+    </div>    
+
+    <div class="row">
+        <div class="col-md-6">
+             <div class="form-group">
+                <div class="input-group dates-wrap">                                              
+                    <input id="datepicker2" required class="dates form-control"  placeholder="Date" type="" name="booking_date">                        
+                    <div class="input-group-prepend">
+                        <span  class="input-group-text"><span class="fa fa-calendar"></span></span>
+                    </div>											
+                </div>
+            </div>
+        </div>
+
+  
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="input-group bootstrap-timepicker timepicker input-small">
+                    <input class="form-control" id="timepicker1" data-provide="timepicker" required type="text" name="booking_time" placeholder="Time"  onfocus="this.placeholder = ''" onblur="this.placeholder = 'Time'" >
+                    <div class="input-group-prepend">
+                        <span  class="input-group-addon input-group-text"><span class="fa fa-clock-o"></span></span>
+                    </div>
+                </div>	
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+
+                 <!-- Default inline 1-->
+                <div class="custom-control custom-checkbox custom-control-inline basic">
+                    <input type="checkbox"  class="custom-control-input"  value="basic" id="defaultInline1" >
+                    <label class="custom-control-label musicLab" for="defaultInline1">Basic</label>
+                </div>
+
+                <!-- Default inline 2-->
+                <div class="custom-control custom-checkbox custom-control-inline deluxe">
+                    <input type="checkbox" class="custom-control-input"  value="deluxe" id="defaultInline2">
+                    <label class="custom-control-label busLab" for="defaultInline2">Deluxe</label>
+                </div>
+
+                <!-- Default inline 3-->
+                <div class="custom-control custom-checkbox custom-control-inline classic">
+                    <input type="checkbox" class="custom-control-input checked" value="classic" id="defaultInline3" >
+                    <label class="custom-control-label perLab" for="defaultInline3">Classic</label>
+                </div>
+
+                <!-- This paragraph holdes the sentence telling a user the plan he chose(It has nothing inside it but collects data through javscript)-->
+                <p class="accSentence"></p>
+                <!--  -->
+
+                <!-- THIS INPUT COLLECTS THE PLSN TYPE SELECTED -->
+                <input type="hidden" value="" name="plan" id="plan" class="type">
+                <!--  -->
+
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <input type="text" readonly class="form-control" name="price" id="price">
+        </div>    
+    </div>
+
+    <div class="form-group">
+        <button type="button" id="process_btn" class="btn btn-primary"><i class="fa fa-taxi"></i> Process now</button>
+    </div>
+</div>
+
+
+{{!-- Paystack  --}}
+<div class="loading text-center">
+    <img src="/img/loading.gif">
+</div>
+
+<div id="booking_details">
+   <p class="lead">Taxi Booking Details on Desk</p>
+    <table class="table table-striped">
+    
+        <tr>
+            <th>From:</th>
+            <td id="booking_from"></td>
+        </tr>
+
+
+        <tr>
+            <th>To:</th>
+            <td id="booking_to"></td>
+        </tr>
+
+        <tr>
+            <th>Plan:</th>
+            <td id="booking_plan"></td>
+        </tr>
+
+        <tr>
+            <th>Price:</th>
+            <td id="booking_price"></td>
+        </tr>
+
+        <tr>
+            <th>Date/Time:</th>
+            <td id="booking_time"></td>
+        </tr>
+    </table>
+
+
+           <div class="stripe_payment">
+               <button type="submit" id="checkout-button" class="btn btn-success payment_button" >Pay Using Credit Card <i class="fa fa-credit-card"></i></button>
+                </form>
+                <div><img src="/img/cards.png" width="200" alt=""></div>    
+
+                <code class="lead smaller text-center ">To test this use any email, 4242 4242 4242 4242 as card number with any card expiry date/cvx number</code>    
+            </div>
+        
+</div>
+
+
+	<script>
+     let stripePublicKey = `{{ stripePubKey}}`
+   </script>

@@ -10,10 +10,11 @@
         </p>
 
 
-        <form method="post" action="" id="login-form">
+        <form method="post" action="/logs/login" id="login-form">
+        {{> user/flash_msgs}}
             <div class="form-group">
                 <div class="input-group">
-                    <input class="form-control" placeholder="Email" name="email" type="email" required>
+                    <input class="form-control" placeholder="Email" name="email" type="email" required="" autofocus="">
 
                     <div class="input-group-prepend">
                         <span class="input-group-text foot-link"><span class="fa fa-envelope"></span>
@@ -36,12 +37,11 @@
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-6 col-sm-6 col-4">
-                        <button type="submit" class="btn btn-primary btn-block " id="signin_btn"> <i class="fa fa-user"></i> Sign in </button>
-
+                        <button type="submit" class="btn btn-success btn-block"> <i class="fa fa-user"></i> Sign in </button>
                     </div>
 
                     <div class="col-md-6 col-sm-6 col-8">
-                        <div class="g-signin2" data-width="192" data-height="37" data-longtitle="true" data-onsuccess="onSignIn"></div>
+                        <a href="" class="btn btn-primary btn-block"><i class="fa fa-facebook"></i> Sign in</a>
                     </div>
                 </div>
                  <a href="#" class="link" id="register_activator">New here? Sign up</a>
@@ -62,10 +62,11 @@
             <img src="/img/gps_bg.jpg" width="50" class="text-center img-responsive" alt="">
         </p>
 
-        <form>
+        <form method="post" action="/logs/register" id="register_form">
+        {{> user/flash_msgs}}
             <div class="form-group">
                 <div class="input-group">
-                    <input class="form-control" placeholder="Email" name="email" type="email" required>
+                    <input class="form-control" placeholder="Email" name="email" type="email" required="" autofocus="">
 
                     <div class="input-group-prepend">
                         <span class="input-group-text foot-link"><span class="fa fa-envelope"></span>
@@ -98,12 +99,12 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-4">
-                            <button type="submit" class="btn btn-primary btn-block " id="register_btn"> <i class="fa fa-plus"></i> Sign up</button>
+                            <button type="submit" class="btn btn-success btn-block "> <i class="fa fa-plus"></i> Sign up</button>
 
                         </div>
 
                         <div class="col-md-6 col-sm-6 col-8">
-                            <div class="g-signin2" data-width="192" data-height="37" data-longtitle="true" data-onsuccess="onSignIn"></div>
+                            <a href="" class="btn btn-primary btn-block"><i class="fa fa-facebook"></i> Sign up</a>
                         </div>
                     </div>
                     <a href="javacript:void(0)" class="link login_activator" >Already own an account? Sign in</a>

@@ -79,8 +79,12 @@ router.put('/:id/update', (req, res)=>{
 router.delete('/:id/delete', (req, res)=>{
     Destination.findOne({_id: req.params.id})
     .then(destination =>{
-        req.flash('success_msg', `${destination.title} has been deleted successfully :)`);
-        res.redirect('/admin/destinations')
+        destination.delete()
+        .then(response=>{
+            req.flash('success_msg', `${response.title} has been deleted successfully :)`);
+            res.redirect('/admin/destinations')
+        })
+        .catch(err=>console.log(err))
     })
     .catch(err => console.log(err))
 })

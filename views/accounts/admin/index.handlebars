@@ -10,7 +10,7 @@
                     </div>
 
                     <div class="col-md-8 mt-3 text-white text-center">
-                       <h2>{{users}} </h2>
+                       <h2>{{userCount}} </h2>
                         <h4>Users</h4>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
                     </div>
 
                      <div class="col-md-8 mt-3 text-white text-center">
-                       <h2>{{posts}} </h2>
+                       <h2>{{postCount}} </h2>
                         <h4>Posts</h4>
                     </div>
                 </div>
@@ -42,12 +42,12 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4">
-                        <i class="fa fa-link fa-4x text-white"></i>
+                        <i class="fa fa-map-o fa-4x text-white"></i>
                     </div>
 
                      <div class="col-md-8 mt-3 text-white text-center">
-                       <h2>{{categories}} </h2>
-                        <h4>Categories</h4>
+                       <h2>{{destinationCount}} </h2>
+                        <h4>Routes</h4>
                     </div>
                 </div>
             </div>
@@ -64,7 +64,7 @@
                     </div>
 
                      <div class="col-md-8 mt-3 text-white text-center">
-                       <h2>{{comments}} </h2>
+                       <h2>{{bookingCount}} </h2>
                         <h4>Bookings</h4>
                     </div>
                 </div>
@@ -95,16 +95,17 @@ var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ["Users", "Posts", "Comments", "Replies", "Categories"],
+        labels: ["Users", "Posts", "Routes", "Testimonies", "Categories", "Media", "Bookings", "Contacts"],
         datasets: [{
-            label: 'Data From CMS',
-            data: [ {{users}},  {{posts}},  {{comments}}, {{replies}}, {{categories}} ],
+            label: 'Data From nodeTaxify',
+            data: [ {{userCount}},  {{postCount}},  {{destinationCount}}, {{testimonyCount}}, {{categoryCount}}, {{mediaCount}}, {{bookingCount}}, {{contactCount}} ],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
                 'rgba(255, 206, 86, 0.2)',
                 'rgba(75, 192, 192, 0.2)',
                 'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
                 'rgba(255, 159, 64, 0.2)'
             ],
             borderColor: [
@@ -113,6 +114,7 @@ var myChart = new Chart(ctx, {
                 'rgba(255, 206, 86, 1)',
                 'rgba(75, 192, 192, 1)',
                 'rgba(153, 102, 255, 1)',
+                'rgba(255, 206, 86, 1)',
                 'rgba(255, 159, 64, 1)'
             ],
             borderWidth: 1

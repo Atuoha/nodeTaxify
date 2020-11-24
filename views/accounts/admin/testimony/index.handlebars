@@ -1,0 +1,142 @@
+<h3>Testimonies</h3>
+{{> admin/flash_msgs}}
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" action="/admin/testimonies/create" id="create-form">
+
+            <div class="form-group">
+                <label for="name">Testimony Content</label>
+                <textarea name="content" id="content" cols="4" rows="5" class="form-control"required autofocus placeholder="Testimony Content"></textarea>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">Create Testimony</button>
+            </div>
+        </form>
+
+        <div class="form-group">
+            <input  type="checkbox" name="" id="gen-dummy">
+            <label for="gen-dummy" class="form-check-label">Generate Dummy Testimonies</label>
+        </div>
+
+
+        <form method="post" action="/admin/Testimonies/dummy" id="dummy-form" >
+            <div class="form-group">
+                <label for="number">Number of Testimonies</label>
+                <input  class="form-control"required type="number" placeholder="Number" name="number" id="number">
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">Generate Dummy Testimonies</button>
+            </div>
+        </form>
+    </div> 
+
+    <div class="col-md-8">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Email</th>
+                    <th>Capture</th>
+                    <th>Content</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+        {{#if testimonies}}       
+             {{#each testimonies}}
+                   <tr>  
+                    <td>{{user.fullname}}</td>
+                    <td>{{user.email}}</td>
+                     {{#if user.file}}
+                        <td><img src="/uploads/{{user.file}}" class="img-circle" alt="" width="40"></td>
+                        {{else}}
+                        <td><img src="/uploads/default.png" alt="" width="40"></td>
+                    {{/if}}
+                    <td class="title">{{content}}</td>
+                    <td><a class="btn btn-success edit" data-user="{{user.fullname}}" rel="{{content}}" href="/admin/testimonies/{{id}}/update?_method=PUT" id="btn-edit">Edit</a></td>
+                    {{!-- <td><a class="btn btn-danger" href="/admin/Testimonies/{{id}}/delete">Delete</a></td> --}}
+                    <td>
+                        <form action="/admin/testimonies/{{id}}/delete?_method=DELETE" method="POST">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                    </td>    
+                 </tr>
+
+            {{/each}}
+        {{else}}
+            <div class="alert alert-success">No Testimony to display</div>
+        {{/if}}    
+            </tbody>
+        </table>
+    </div>    
+
+
+    <div class="col-md-4" id="edit-form">
+    <p class="lead"> </p>
+    <form id="editing" method="post" action="">
+            <div class="form-group">
+                <label for="edit_title">Testimony Content</label>
+                <textarea name="content" id="edit_content" cols="4" rows="5" class="form-control"required autofocus placeholder="Testimony Content"></textarea>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">Submit Edit</button>
+            </div>
+        </form>
+    </div>    
+</div>    
+
+
+
+
+
+
+
+
+
+
+
+<style>
+    #edit-form, #dummy-form{
+        display:none;
+    }
+</style>
+
+
+
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script>
+    $('#gen-dummy').click(function(){
+        if(this.checked){
+            $('#dummy-form').fadeIn('slow');
+            $('#create-form').fadeOut('slow');
+             $('#edit-form').fadeOut('slow');
+            console.log('Checked')
+        }else{
+           $('#create-form').fadeIn('slow');
+            $('#dummy-form').fadeOut('slow');
+             $('#edit-form').fadeOut('slow');
+
+            console.log('Unchecked')
+        }
+    })
+
+    $('.edit').click(function(e){
+        e.preventDefault()
+        let content = $(this).attr('rel');
+        let action = $(this).attr('href')
+        let user = $(this).data('user')
+
+        $('#edit_content').html(content);
+        $('#editing').attr('action', action);
+        $('.lead').html(`Edit Testimony: ${content} by ${user}`)
+        $('#dummy-form').fadeOut('slow');
+        $('#edit-form').fadeIn('slow');
+        console.log(title)
+
+    })
+</script>

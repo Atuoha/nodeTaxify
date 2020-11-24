@@ -5,3 +5,12 @@
 .loading{
     display: none;
 }
+
+#price{
+    display: none;
+}
+
+
+.loading_contact_process{
+    display: none;
+}

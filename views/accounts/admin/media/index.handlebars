@@ -14,7 +14,7 @@
 
 
     <div class="col-md-4">
-        <form action="/admin/department/multiaction" method="post" id="del_form">
+        <form action="/admin/media/multiaction" method="post" id="del_form">
 
             <div class="form-group multi_action">
             <div class="row">
@@ -47,7 +47,7 @@
                        <td><input type="checkbox" name="checkboxes[]"  value="{{id}}" class="checkboxes"></td>
 </form>
                     <td><img src="/uploads/{{file}}" width="100" alt=""></td>
-                    <td><a href="/admin/users/delete/{{id}}" class="btn btn-danger"><i class="fa fa-remove"></i> Delete</a></td>
+                    <td><a href="/admin/media/delete/{{id}}" class="btn btn-danger"><i class="fa fa-remove"></i> Delete</a></td>
                   </tr>  
                   {{/each}}
                {{else}}

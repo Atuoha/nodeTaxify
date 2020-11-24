@@ -7,7 +7,7 @@
 			                        </form>
 								</div>
 								<div class="single-sidebar-widget user-info-widget">
-									<img width="100" class="rounded-circle" src="uploads/1601928444384-0.jpg" alt="">
+									<img width="100" class="rounded-circle" src="/uploads/tonio.jpg" alt="">
 									<a href="https://atuoha.github.io"><h4>Atuoha Anthony</h4></a>
 									<p>
 										Developer | Writer 
@@ -25,42 +25,22 @@
 								<div class="single-sidebar-widget popular-post-widget">
 									<h4 class="popular-title">Popular Posts</h4>
 									<div class="popular-post-list">
-										<div class="single-post-list d-flex flex-row align-items-center">
-											<div class="thumb">
-												<img class="img-fluid" src="img/blog/pp1.jpg" alt="">
+									{{#if sidebar_posts}}
+										{{#each sidebar_posts}}
+											<div class="single-post-list d-flex flex-row align-items-center">
+												<div class="thumb">
+													<img class="img-fluid" src="/uploads/{{file}}" alt="">
+												</div>
+												<div class="details">
+													<a href="/single_blog/{{slug}}"><h6>{{title}}</h6></a>
+													<p>{{generate_date date 'MMM-Do-Y'}}</p>
+												</div>
 											</div>
-											<div class="details">
-												<a href="blog-single.html"><h6>Space The Final Frontier</h6></a>
-												<p>02 Hours ago</p>
-											</div>
-										</div>
-										<div class="single-post-list d-flex flex-row align-items-center">
-											<div class="thumb">
-												<img class="img-fluid" src="img/blog/pp2.jpg" alt="">
-											</div>
-											<div class="details">
-												<a href="blog-single.html"><h6>The Amazing Hubble</h6></a>
-												<p>02 Hours ago</p>
-											</div>
-										</div>
-										<div class="single-post-list d-flex flex-row align-items-center">
-											<div class="thumb">
-												<img class="img-fluid" src="img/blog/pp3.jpg" alt="">
-											</div>
-											<div class="details">
-												<a href="blog-single.html"><h6>Astronomy Or Astrology</h6></a>
-												<p>02 Hours ago</p>
-											</div>
-										</div>
-										<div class="single-post-list d-flex flex-row align-items-center">
-											<div class="thumb">
-												<img class="img-fluid" src="img/blog/pp4.jpg" alt="">
-											</div>
-											<div class="details">
-												<a href="blog-single.html"><h6>Asteroids telescope</h6></a>
-												<p>02 Hours ago</p>
-											</div>
-										</div>															
+										{{/each}}
+									{{else}}
+									<div class="alert alert-success text-center">No Blog Posts to display</div>
+									{{/if}}		
+																									
 									</div>
 								</div>
 								<div class="single-sidebar-widget ads-widget">
@@ -69,48 +49,18 @@
 								<div class="single-sidebar-widget post-category-widget">
 									<h4 class="category-title">Post Catgories</h4>
 									<ul class="cat-list">
+									{{#if categories}}	
+										{{#each categories}}
 										<li>
-											<a href="#" class="d-flex justify-content-between">
-												<p>Technology</p>
-												<p>37</p>
+											<a href="/category_blog/{{id}}" class="d-flex justify-content-between">
+												<p>{{title}}</p>
 											</a>
 										</li>
-										<li>
-											<a href="#" class="d-flex justify-content-between">
-												<p>Lifestyle</p>
-												<p>24</p>
-											</a>
-										</li>
-										<li>
-											<a href="#" class="d-flex justify-content-between">
-												<p>Fashion</p>
-												<p>59</p>
-											</a>
-										</li>
-										<li>
-											<a href="#" class="d-flex justify-content-between">
-												<p>Art</p>
-												<p>29</p>
-											</a>
-										</li>
-										<li>
-											<a href="#" class="d-flex justify-content-between">
-												<p>Food</p>
-												<p>15</p>
-											</a>
-										</li>
-										<li>
-											<a href="#" class="d-flex justify-content-between">
-												<p>Architecture</p>
-												<p>09</p>
-											</a>
-										</li>
-										<li>
-											<a href="#" class="d-flex justify-content-between">
-												<p>Adventure</p>
-												<p>44</p>
-											</a>
-										</li>															
+										{{/each}}
+									{{else}}
+									<div class="alert alert-success text-center">No categories to display</div>
+									{{/if}}			
+																								
 									</ul>
 								</div>	
 								<div class="single-sidebar-widget newsletter-widget">
@@ -138,18 +88,13 @@
 								<div class="single-sidebar-widget tag-cloud-widget">
 									<h4 class="tagcloud-title">Tag Clouds</h4>
 									<ul>
-										<li><a href="#">Technology</a></li>
-										<li><a href="#">Fashion</a></li>
-										<li><a href="#">Architecture</a></li>
-										<li><a href="#">Fashion</a></li>
-										<li><a href="#">Food</a></li>
-										<li><a href="#">Technology</a></li>
-										<li><a href="#">Lifestyle</a></li>
-										<li><a href="#">Art</a></li>
-										<li><a href="#">Adventure</a></li>
-										<li><a href="#">Food</a></li>
-										<li><a href="#">Lifestyle</a></li>
-										<li><a href="#">Adventure</a></li>
+									{{#if blog_posts}}	
+										{{#each blog_posts}}
+											<li><a href="javascript:void(0)">{{sub}}</a></li>
+										{{/each}}
+									{{else}}
+									<div class="alert alert-success text-center">No Tags to display</div>
+									{{/if}}		
 									</ul>
 								</div>								
 							</div>

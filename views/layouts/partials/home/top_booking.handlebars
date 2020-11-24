@@ -14,48 +14,45 @@
 							<a href="#" class="primary-btn text-uppercase">Call for taxi</a>
 						</div>
 						<div class="col-lg-4  col-md-6 header-right">
-							<form class="form" method="post" id="distance_form">
+							<form class="form" method="post" id="booking_form">
+							 <div class="form-section">	
 								<h4 class="pb-30">Book Your Taxi Online!</h4>
 
 						{{#if loggedUser}}
 
 								 <div class="form-group">
-									   <select id="from_place" required class="selectpicker select show-tick" data-width="100%" data-live-search="true" title="From Destination" data-size="4" data-header="From Destination" name="from_place">
-                                            <option>Elelenwo,Port Harcourt</option>
-                                            <option>Market Junction,Port Harcourt</option>
-                                            <option>Artilary,Port Harcourt</option>
-                                            <option>Woji,Port Harcourt</option>
-                                            <option>Mile one,Port Harcourt</option>
-                                            <option>Choba,Port Harcourt</option>
-                                            <option>Trans Amadi,Port Harcourt</option>
+									   <select id="from_place" required class="selectpicker select show-tick" data-width="100%" data-live-search="true" title="From Destination" data-size="4" data-header="From Destination" name="location">
+                                           {{#each destinations}}
+                                            <option value="{{title}}">{{title}}</option>             
+											{{/each}}
 										</select>
 								</div>
 
 
 								<div class="form-group">
-									   <select id="to_place" required class="selectpicker select show-tick" data-width="100%" data-live-search="true" title="To Destination" data-size="4" data-icon="fa fa-heart"  data-header="To Destination" name="to_place">
-                                            <option>Elelenwo,Port Harcourt</option>
-                                            <option>Market Junction,Port Harcourt</option>
-                                            <option>Artilary,Port Harcourt</option>
-                                            <option>Woji,Port Harcourt</option>
-                                            <option>Mile one,Port Harcourt</option>
-                                            <option>Choba,Port Harcourt</option>
-                                            <option>Trans Amadi,Port Harcourt</option>
+									   <select id="to_place" required class="selectpicker select show-tick" data-width="100%" data-live-search="true" title="To Destination" data-size="4" data-icon="fa fa-heart"  data-header="To Destination" name="destination">
+										   {{#each destinations}}
+                                            <option value="{{title}}">{{title}}</option>             
+											{{/each}}
 										</select>
 							    </div> 
 					    
 							    <div class="form-group">
 									<div class="input-group dates-wrap">                                              
-										<input id="datepicker2" required class="dates form-control"  placeholder="Date" type="text" name="dates">                        
+										<input id="datepicker2" required class="dates form-control"  placeholder="Date" type="text" name="booking_date">                        
 										<div class="input-group-prepend">
 											<span  class="input-group-text"><span class="fa fa-calendar"></span></span>
 										</div>											
 									</div>
 								</div>	
+
+								{{!-- Price --}}
+								<input type="hidden" class="form-control" name="price" id="price">
+								{{!--  --}}
 								
 								<div class="form-group">
 									<div class="input-group bootstrap-timepicker timepicker input-small">
-							    	<input class="form-control" id="timepicker1" data-provide="timepicker" required type="text" name="time" placeholder="Time"  onfocus="this.placeholder = ''" onblur="this.placeholder = 'Time'" name="time">
+							    	<input class="form-control" id="timepicker1" data-provide="timepicker" required type="text" placeholder="Time"  onfocus="this.placeholder = ''" onblur="this.placeholder = 'Time'" name="booking_time">
 							    	<div class="input-group-prepend">
 									  <span  class="input-group-addon input-group-text"><span class="fa fa-clock-o"></span></span>
 								</div>
@@ -91,16 +88,15 @@
 								
 
 							    <div class="form-group">
-								<button class="btn btn-default btn-lg btn-block text-center text-uppercase" type="submit" >Book Now
-								</button>
+								 <button type="button" id="process_btn" class="btn btn-default btn-lg btn-block text-center text-uppercase"><i class="fa fa-taxi"></i> Process now</button>
 							    </div>
 
 						{{else}}	
 						<div class="alert alert-success"><a href="/logs/sign"><i class="fa fa-sign-in"></i> Sign in</a> to book now!</div>
 
 						{{/if}}	
-							</form>
-
+						</div>
+						
                             <div class="loading">
                                 <img src="/img/loading.gif">
                             </div>
@@ -126,6 +122,12 @@
                                             <td id="booking_plan"></td>
                                         </tr>
 
+
+										 <tr>
+                                            <th>Price:</th>
+                                            <td id="booking_price"></td>
+                                        </tr>
+
                                         <tr>
                                             <th>Date/Time:</th>
                                             <td id="booking_time"></td>
@@ -133,14 +135,12 @@
                                     </table>
 
 
-                                    <div class="paypal_payment">
-                                        <p class="lead">Payment Section | PayPal</p>
+                                   <div class="stripe_payment">
+									   <button type="submit" id="checkout-button" class="btn btn-success payment_button" >Pay Using Credit Card <i class="fa fa-credit-card"></i></button>
+									   	</form>
 
-                                        <div class="paypal">
-                                           Paypal Stuffs ------|
-
-                                        </div>
-                                    </div>
+									    <div><img src="/img/cards.png" width="200" alt=""></div> 
+									</div>
                                  
                             </div>
 

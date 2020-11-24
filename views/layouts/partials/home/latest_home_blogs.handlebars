@@ -6,42 +6,29 @@
 						<p>Who are in extremely love with eco friendly system.</p>
 					</div>						
 					<div class="row">
+					{{#if home_blogs}}
+						{{#each home_blogs}}	
 						<div class="col-lg-6">
 							<div class="single-latest-blog">
 								<div class="thumb">
-									<img class="img-fluid" src="img/b1.jpg" alt="">
+									<img class="img-fluid" src="/uploads/{{file}}" alt="">
 								</div>
 								<ul class="tags">
-									<li><a href="#">Travel</a></li>
-									<li><a href="#">Life Style</a></li>
+									<li><a href="/category_blog/{{category.id}}">{{category.title}}</a></li>
 								</ul>
 								<a href="#">
-									<h4>Portable latest Fashion for young women</h4>
+									<h4>{{title}}</h4>
 								</a>
 								<p>
-									Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore  et dolore.
+									{{body}}
 								</p>
-								<p class="date">31st January, 2018</p>
+								<p class="date">{{generate_date date 'MMM-Do-Y'}}</p>
 							</div>
 						</div>
-						<div class="col-lg-6">
-							<div class="single-latest-blog">
-								<div class="thumb">
-									<img class="img-fluid" src="img/b2.jpg" alt="">
-								</div>
-								<ul class="tags">
-									<li><a href="#">Travel</a></li>
-									<li><a href="#">Life Style</a></li>
-								</ul>
-								<a href="#">
-									<h4>Portable latest Fashion for young women</h4>
-								</a>
-								<p>
-									Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore  et dolore.
-								</p>
-								<p class="date">31st January, 2018</p>
-							</div>
-						</div>						
+						{{/each}}
+					{{else}}
+					<div class="alert alert-success text-center">No Blog Posts to display</div>
+					{{/if}}							
 					</div>
 				</div>	
 			</section>
