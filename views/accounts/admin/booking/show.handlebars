@@ -71,20 +71,20 @@
 
             <tr>
                 <th>Edit Booking</th>
-               <td><a href="/admin/contact/edit/{{id}}" class="btn btn-success"><i class="fa fa-pencil"></i></a></td>
+               <td><a href="/admin/contact/edit/{{booking.id}}" class="btn btn-success"><i class="fa fa-pencil"></i></a></td>
             </tr>
 
 
             <tr>
                 <th>Cancel Booking</th>
-                 <td><a href="/admin/contact/cancel/{{id}}" class="btn btn-success"><i class="fa fa-remove"></i> Cancel</a></td>
+                 <td><a href="/admin/contact/cancel/{{booking.id}}" class="btn btn-success"><i class="fa fa-remove"></i></a></td>
             </tr>
 
 
             <tr>
                 <th>Delete Booking</th>
                <td>
-                <form action="admin/contact/{{id}}/delete?_method=DELETE" method="post">
+                <form action="admin/contact/{{booking.id}}/delete?_method=DELETE" method="post">
                     <button type="submit" class="btn btn-danger"><i class="fa fa-remove"></i></button>
                 </form>
                 </td>

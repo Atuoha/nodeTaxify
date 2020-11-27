@@ -37,7 +37,7 @@ router.get('/', (req, res)=>{
 
 router.get('/cancelled', (req, res)=>{
     Booking.find()
-    .where('status').equals('unactive')
+    .where('status').equals('Unactive')
     .populate('user')
     .then(bookings=>{
          res.render('accounts/admin/booking/cancelled', {bookings: bookings});
@@ -68,7 +68,7 @@ router.get('/create', (req, res)=>{
 
 router.get('/edit/:id', (req, res)=>{
     Booking.findOne({_id: req.params.id})
-    .where('status').equals('active')
+    .where('status').equals('Active')
     .then(booking=>{
         Destination.find()
         .then(destinations=>{
@@ -83,7 +83,7 @@ router.get('/edit/:id', (req, res)=>{
 
 router.get('/show/:id', (req, res)=>{
     Booking.findOne({_id: req.params.id})
-    .where('status').equals('active')
+    .where('status').equals('Active')
     .then(booking=>{
         res.render('accounts/admin/booking/show', {booking: booking});
     })
@@ -178,9 +178,9 @@ router.put('/:id/update', (req, res)=>{
 
 router.get('/cancel/:id', (req, res)=>{
     Booking.findOne({_id: req.params.id})
-    .where('status').equals('active')
+    .where('status').equals('Active')
     .then(booking=>{
-        booking.status = 'unactive';
+        booking.status = 'Unactive';
         booking.save()
         .then(saved=>{
             req.flash('success_msg', 'Taxi booking has been cancelled successfully : )');
@@ -195,9 +195,9 @@ router.get('/cancel/:id', (req, res)=>{
 
 router.get('/retrieve/:id', (req, res)=>{
     Booking.findOne({_id: req.params.id})
-    .where('status').equals('unactive')
+    .where('status').equals('Unactive')
     .then(booking=>{
-        booking.status = 'active';
+        booking.status = 'Active';
         booking.save()
         .then(saved=>{
             req.flash('success_msg', 'Taxi booking has been retrieved successfully : )');
