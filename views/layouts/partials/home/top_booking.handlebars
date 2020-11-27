@@ -88,7 +88,7 @@
 		
 
 		<div class="form-group">
-			<button type="submit" id="process_btn" class="btn btn-default btn-lg btn-block text-center text-uppercase"><i class="fa fa-taxi"></i> Process now <i class="fa fa-credit-card"></i></button>
+			<button type="button" id="process_btn" class="btn btn-default btn-lg btn-block text-center text-uppercase">Process now <i class="fa fa-spinner fa-spin "></i></button>
 		</div>
 		
 
@@ -152,7 +152,6 @@
 					script.setAttribute("data-amount", price);
 					script.setAttribute("data-name", "NodeTaxify");
 					script.setAttribute("data-locale", "auto");
-					script.setAttribute("data-zip-code", "true");
 					script.setAttribute("data-image", "/uploads/gps_bg.jpg");
 					script.setAttribute("data-description", desc);
 					$('.stripe_btn').append(script)     

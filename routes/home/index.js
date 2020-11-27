@@ -1,3 +1,10 @@
+if(process.env.NODE_ENV !== 'production'){
+    require('dotenv').config()
+}
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY
+const stripePubKey = process.env.STRIPE_PUBLISHABLE_KEY
+
+
 const express = require('express'),
     app = express(),
     Post = require('../../models/Post'),
@@ -33,7 +40,7 @@ router.get('/', (req, res)=>{
                         .then(destinations=>{
                             Media.find()
                             .then(medias=>{
-                                res.render('home/index', {blog_posts: blog_posts, home_blogs: home_blogs, sidebar_posts: sidebar_posts, categories: categories, testimonies: testimonies, destinations: destinations, medias: medias});
+                                res.render('home/index', {blog_posts: blog_posts, home_blogs: home_blogs, sidebar_posts: sidebar_posts, categories: categories, testimonies: testimonies, destinations: destinations, medias: medias, stripePubKey: stripePubKey});
                             })
                             .catch(err=>console.log(err))
                         })

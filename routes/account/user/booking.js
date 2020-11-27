@@ -19,9 +19,9 @@ router.all('/*', (req, res, next)=>{
 
 
 router.get('/', (req, res)=>{
-    Booking.find({user: req.user.id})
-     .where('status').equals('active')
-    // Booking.find({user:'5fb26dd6794fc32960e640c3'})
+    Booking.find({user:'5fb26dd6794fc32960e640c3'})
+    // Booking.find({user: req.user.id})
+     .where('status').equals('Active')
     .populate('user')
     .then(bookings=>{
          res.render('accounts/user/booking', {bookings: bookings});
@@ -74,25 +74,63 @@ router.get('/show/:id', (req, res)=>{
 })
 
 
-router.post('/create', (req, res)=>{
+// router.post('/create', (req, res)=>{
 
-    const newBooking =  new Booking()
-    newBooking.location = req.body.location;
-    newBooking.destination = req.body.destination;
-    newBooking.booking_time = req.body.booking_time;
-    newBooking.booking_date = req.body.booking_date;
-    newBooking.price = req.body.price;
-    newBooking.plan = req.body.plan;
-    newBooking.date = new Date();
-    newBooking.user = req.user.id;
-    // newBooking.user = '5fb26dd6794fc32960e640c3';
-    newBooking.save()
-    .then(saved=>{
-        req.flash('success_msg', 'Taxi booking process has been completed : )');
-        res.redirect(`/user/booking/${req.user.id}`)
-    })
-    .catch(err=>console.log(err))
+//     const newBooking =  new Booking()
+//     newBooking.location = req.body.location;
+//     newBooking.destination = req.body.destination;
+//     newBooking.booking_time = req.body.booking_time;
+//     newBooking.booking_date = req.body.booking_date;
+//     newBooking.price = req.body.price;
+//     newBooking.plan = req.body.plan;
+//     newBooking.date = new Date();
+//     newBooking.user = req.user.id;
+//     // newBooking.user = '5fb26dd6794fc32960e640c3';
+//     newBooking.save()
+//     .then(saved=>{
+//         req.flash('success_msg', 'Taxi booking process has been completed : )');
+//         res.redirect(`/user/booking`)
+//     })
+//     .catch(err=>console.log(err))
     
+// })
+
+
+
+router.post('/charge', (req, res)=>{
+    stripe.customers.create({
+        email: req.body.stripeEmail,
+        source: req.body.stripeToken,
+    })
+    .then(customer=>{
+        return stripe.charges.create({
+            amount: parseFloat(req.body.price.replace('$', ''))*100,
+            description: `${req.body.location} to ${req.body.destination} on ${req.body.plan}`,
+            currency: 'USD',
+            customer: customer.id
+        })
+    })
+    .then(charge=>{
+
+        // saving to database
+        const newBooking =  new Booking()
+        newBooking.location = req.body.location;
+        newBooking.destination = req.body.destination;
+        newBooking.booking_time = req.body.booking_time;
+        newBooking.booking_date = req.body.booking_date;
+        newBooking.price = req.body.price;
+        newBooking.plan = req.body.plan;
+        newBooking.date = new Date();
+        // newBooking.user = req.user.id;
+        newBooking.user = '5fb26dd6794fc32960e640c3';
+        newBooking.save()
+        .then(saved=>{
+            req.flash('success_msg', 'Taxi booking process has been completed :)');
+            res.redirect(`/user/booking`)
+        })
+        .catch(err=>console.log(err))
+    })
+    .catch(err=>console.log(err))    
 })
 
 

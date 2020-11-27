@@ -24,6 +24,7 @@ const express = require('express'),
 
 mongoose.set('useFindAndModify', false);
 mongoose.Promise = global.Promise;
+mongoose.set('useCreateIndex', true);
 
 
 mongoose.connect(mongoDburl, {useNewUrlParser: true, useUnifiedTopology: true })

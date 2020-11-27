@@ -6,7 +6,7 @@ const stripeSecretKey = process.env.STRIPE_SECRET_KEY
 const stripePubKey = process.env.STRIPE_PUBLISHABLE_KEY
 const stripe =  require('stripe')(stripeSecretKey)
 
-
+// On heroku during deploy go to app setting and config the variables
 
 
 
@@ -26,7 +26,7 @@ router.all('/*', (req, res, next)=>{
 
 router.get('/', (req, res)=>{
     Booking.find()
-    .where('status').equals('active')
+    .where('status').equals('Active')
     .populate('user')
     .then(bookings=>{
          res.render('accounts/admin/booking', {bookings: bookings});
@@ -115,14 +115,14 @@ router.get('/show/:id', (req, res)=>{
 
 
 router.post('/charge', (req, res)=>{
-    stripe.customer.create({
+    stripe.customers.create({
         email: req.body.stripeEmail,
         source: req.body.stripeToken,
     })
     .then(customer=>{
         return stripe.charges.create({
-            amount: req.body.price,
-            description: `${req.body.from} to ${req.body.to} on ${req.body.plan}`,
+            amount: parseFloat(req.body.price.replace('$', ''))*100,
+            description: `${req.body.location} to ${req.body.destination} on ${req.body.plan}`,
             currency: 'USD',
             customer: customer.id
         })
@@ -142,7 +142,7 @@ router.post('/charge', (req, res)=>{
         newBooking.user = '5fb26dd6794fc32960e640c3';
         newBooking.save()
         .then(saved=>{
-            req.flash('success_msg', 'Taxi booking process has been completed : )');
+            req.flash('success_msg', 'Taxi booking process has been completed :)');
             res.redirect('/admin/booking')
         })
         .catch(err=>console.log(err))

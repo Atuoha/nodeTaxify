@@ -165,11 +165,11 @@ $('#booking_form').submit(function(e){
 
     let price = ''
     if(attr == 'deluxe'){
-      price = 200
+      price = 15
     }else if(attr == 'classic'){
-      price = 150
+      price = 10
     }else{
-      price = 100
+      price = 5
     }
 
     // if(to !== '' && from !== ''){
