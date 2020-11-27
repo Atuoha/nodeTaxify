@@ -1,7 +1,7 @@
 <h2><i class="fa fa-taxi"></i> Booking</h2>
 
 
-<form action="/admin/booking/create" method="post" id="booking_form">
+<form action="/admin/booking/charge" method="post" id="booking_form">
  <div class="form-section">
     <div class="row">
         <div class="col-md-6">
@@ -90,12 +90,13 @@
     </div>
 
     <div class="form-group">
-        <button type="button" id="process_btn" class="btn btn-primary"><i class="fa fa-taxi"></i> Process now</button>
+        <button type="button" id="process_btn" class="btn btn-success"> Process now <i class="fa fa-spinner fa-spin "></i></button>
     </div>
 </div>
 
 
-{{!-- Paystack  --}}
+
+{{!-- PAYMENT SECTION  --}}
 <div class="loading text-center">
     <img src="/img/loading.gif">
 </div>
@@ -132,17 +133,44 @@
     </table>
 
 
-           <div class="stripe_payment">
-               <button type="submit" id="checkout-button" class="btn btn-success payment_button" >Pay Using Credit Card <i class="fa fa-credit-card"></i></button>
-                </form>
-                <div><img src="/img/cards.png" width="200" alt=""></div>    
+    <div class="stripe_payment">
+        <script src="/js/vendor/jquery-2.2.4.min.js"></script>
+        <script>
+            $('#process_btn').click(function(e){
+                    let priceElement = $('#price').attr('value')
+                    let price = parseFloat(priceElement.replace('$', ''))*100
+                
+                    let to = $('#to_place').val();
+                    let from = $('#from_place').val();
+                    let plan = $('#plan').val();
+                    let desc = `${from} to ${to} on ${plan}`
 
-                <code class="lead smaller text-center ">To test this use any email, 4242 4242 4242 4242 as card number with any card expiry date/cvx number</code>    
-            </div>
+                    //stripe button forging
+                    let script  = document.createElement('script')
+                    script.src = "https://checkout.stripe.com/checkout.js";
+                    script.setAttribute("class", "stripe-button");
+                    script.setAttribute("data-key", "{{stripePubKey}}");
+                    script.setAttribute("data-amount", price);
+                    script.setAttribute("data-name", "NodeTaxify");
+                    script.setAttribute("data-locale", "auto");
+                    script.setAttribute("data-zip-code", "true");
+                    script.setAttribute("data-image", "/uploads/gps_bg.jpg");
+                    script.setAttribute("data-description", desc);
+                    $('.stripe_btn').append(script)     
+            })          
+        </script>
         
+        <div class="stripe_btn"></div>
+        <div><img src="/img/cards.png" width="200" alt=""></div>    
+</form>
+        <code class="lead smaller text-center ">PS: To test this use any email, 4242 4242 4242 4242 as card number with a future card expiry date and a cvc number</code>  
+        
+    </div>
+
 </div>
 
- <script src="https://js.stripe.com/v3/"></script>
-	<script>
-     let stripePublicKey = `{{ stripePubKey}}`
-   </script>
+
+
+
+
+

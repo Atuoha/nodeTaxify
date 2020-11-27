@@ -1,3 +1,4 @@
+
 if(process.env.NODE_ENV !== 'production'){
     require('dotenv').config()
 }
@@ -6,9 +7,14 @@ const stripePubKey = process.env.STRIPE_PUBLISHABLE_KEY
 const stripe =  require('stripe')(stripeSecretKey)
 
 
+
+
+
 const express = require('express'),
     app = express(),
-    router = express.Router(),
+    router = require('express-promise-router')(),
+    fetch = require('node-fetch'),
+    bodyParser = require('body-parser'),
     Booking = require('../../../models/Booking'),
     Destination = require('../../../models/Destination');
 
@@ -85,25 +91,63 @@ router.get('/show/:id', (req, res)=>{
 })
 
 
-router.post('/create', (req, res)=>{
+// router.post('/create', (req, res)=>{
 
-    const newBooking =  new Booking()
-    newBooking.location = req.body.location;
-    newBooking.destination = req.body.destination;
-    newBooking.booking_time = req.body.booking_time;
-    newBooking.booking_date = req.body.booking_date;
-    newBooking.price = req.body.price;
-    newBooking.plan = req.body.plan;
-    newBooking.date = new Date();
-    // newBooking.user = req.user.id;
-    newBooking.user = '5fb26dd6794fc32960e640c3';
-    newBooking.save()
-    .then(saved=>{
-        req.flash('success_msg', 'Taxi booking process has been completed : )');
-        res.redirect('/admin/booking')
-    })
-    .catch(err=>console.log(err))
+//       // saving to database
+//       const newBooking =  new Booking()
+//       newBooking.location = req.body.location;
+//       newBooking.destination = req.body.destination;
+//       newBooking.booking_time = req.body.booking_time;
+//       newBooking.booking_date = req.body.booking_date;
+//       newBooking.price = req.body.price;
+//       newBooking.plan = req.body.plan;
+//       newBooking.date = new Date();
+//       // newBooking.user = req.user.id;
+//       newBooking.user = '5fb26dd6794fc32960e640c3';
+//       newBooking.save()
+//       .then(saved=>{
+//           req.flash('success_msg', 'Taxi booking process has been completed : )');
+//           res.redirect('/admin/booking')
+//       })
+//       .catch(err=>console.log(err))
     
+// })
+
+
+router.post('/charge', (req, res)=>{
+    stripe.customer.create({
+        email: req.body.stripeEmail,
+        source: req.body.stripeToken,
+    })
+    .then(customer=>{
+        return stripe.charges.create({
+            amount: req.body.price,
+            description: `${req.body.from} to ${req.body.to} on ${req.body.plan}`,
+            currency: 'USD',
+            customer: customer.id
+        })
+    })
+    .then(charge=>{
+
+        // saving to database
+        const newBooking =  new Booking()
+        newBooking.location = req.body.location;
+        newBooking.destination = req.body.destination;
+        newBooking.booking_time = req.body.booking_time;
+        newBooking.booking_date = req.body.booking_date;
+        newBooking.price = req.body.price;
+        newBooking.plan = req.body.plan;
+        newBooking.date = new Date();
+        // newBooking.user = req.user.id;
+        newBooking.user = '5fb26dd6794fc32960e640c3';
+        newBooking.save()
+        .then(saved=>{
+            req.flash('success_msg', 'Taxi booking process has been completed : )');
+            res.redirect('/admin/booking')
+        })
+        .catch(err=>console.log(err))
+    })
+    .catch(err=>console.log(err))    
 })
 
 

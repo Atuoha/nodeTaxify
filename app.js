@@ -19,6 +19,7 @@ const express = require('express'),
     session = require('express-session'),
     flash = require('connect-flash'),
     passport = require('passport'),
+    fetch = require('node-fetch'),
     {mongoDburl} = require('./config/database');
 
 mongoose.set('useFindAndModify', false);
@@ -30,6 +31,11 @@ mongoose.connect(mongoDburl, {useNewUrlParser: true, useUnifiedTopology: true })
     .catch(err=> console.log(err))
 
 app.use(express.static(path.join(__dirname, 'public'))) // Loading Static files like css, js and stuffs
+
+
+
+
+
 
 
 // custom select handlebars function

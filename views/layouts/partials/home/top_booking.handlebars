@@ -1,154 +1,177 @@
-	<!-- start banner Area -->
-			<section class="banner-area relative" id="home">
-				<div class="overlay overlay-bg"></div>	
-				<div class="container">
-					<div class="row fullscreen d-flex align-items-center justify-content-between">
-						<div class="banner-content col-lg-6 col-md-6 ">
-							<h6 class="text-white ">Need a ride? just call</h6>
-							<h1 class="text-uppercase">
-								(234) 814 320 0267			
-							</h1>
-							<p class="pt-10 pb-10 text-white">
-								Whether you enjoy city breaks or extended holidays in the sun, you can always improve your travel experiences by staying in a small.
-							</p>
-							<a href="#" class="primary-btn text-uppercase">Call for taxi</a>
-						</div>
-						<div class="col-lg-4  col-md-6 header-right">
-							<form class="form" method="post" id="booking_form">
-							 <div class="form-section">	
-								<h4 class="pb-30">Book Your Taxi Online!</h4>
+<!-- start banner Area -->
+<section class="banner-area relative" id="home">
+<div class="overlay overlay-bg"></div>	
+<div class="container">
+<div class="row fullscreen d-flex align-items-center justify-content-between">
+<div class="banner-content col-lg-6 col-md-6 ">
+	<h6 class="text-white ">Need a ride? just call</h6>
+	<h1 class="text-uppercase">
+		(234) 814 320 0267			
+	</h1>
+	<p class="pt-10 pb-10 text-white">
+		Whether you enjoy city breaks or extended holidays in the sun, you can always improve your travel experiences by staying in a small.
+	</p>
+	<a href="#" class="primary-btn text-uppercase">Call for taxi</a>
+</div>
+<div class="col-lg-4  col-md-6 header-right">
+	<form class="form" method="post" id="booking_form" action="user/booking/charge">
+		<div class="form-section">	
+		<h4 class="pb-30">Book Your Taxi Online!</h4>
 
-						{{#if loggedUser}}
+{{!-- {{#if loggedUser}} --}}
 
-								 <div class="form-group">
-									   <select id="from_place" required class="selectpicker select show-tick" data-width="100%" data-live-search="true" title="From Destination" data-size="4" data-header="From Destination" name="location">
-                                           {{#each destinations}}
-                                            <option value="{{title}}">{{title}}</option>             
-											{{/each}}
-										</select>
-								</div>
-
-
-								<div class="form-group">
-									   <select id="to_place" required class="selectpicker select show-tick" data-width="100%" data-live-search="true" title="To Destination" data-size="4" data-icon="fa fa-heart"  data-header="To Destination" name="destination">
-										   {{#each destinations}}
-                                            <option value="{{title}}">{{title}}</option>             
-											{{/each}}
-										</select>
-							    </div> 
-					    
-							    <div class="form-group">
-									<div class="input-group dates-wrap">                                              
-										<input id="datepicker2" required class="dates form-control"  placeholder="Date" type="text" name="booking_date">                        
-										<div class="input-group-prepend">
-											<span  class="input-group-text"><span class="fa fa-calendar"></span></span>
-										</div>											
-									</div>
-								</div>	
-
-								{{!-- Price --}}
-								<input type="hidden" class="form-control" name="price" id="price">
-								{{!--  --}}
-								
-								<div class="form-group">
-									<div class="input-group bootstrap-timepicker timepicker input-small">
-							    	<input class="form-control" id="timepicker1" data-provide="timepicker" required type="text" placeholder="Time"  onfocus="this.placeholder = ''" onblur="this.placeholder = 'Time'" name="booking_time">
-							    	<div class="input-group-prepend">
-									  <span  class="input-group-addon input-group-text"><span class="fa fa-clock-o"></span></span>
-								</div>
-								</div>	
-								</div>
-								
-								 <!-- Default inline 1-->
-								 <div class="custom-control custom-checkbox custom-control-inline basic">
-									<input type="checkbox"  class="custom-control-input"  value="basic" id="defaultInline1" >
-									<label class="custom-control-label musicLab" for="defaultInline1">Basic</label>
-								</div>
-
-								<!-- Default inline 2-->
-								<div class="custom-control custom-checkbox custom-control-inline deluxe">
-									<input type="checkbox" class="custom-control-input"  value="deluxe" id="defaultInline2" >
-									<label class="custom-control-label busLab" for="defaultInline2">Deluxe</label>
-								</div>
-
-								<!-- Default inline 3-->
-								<div class="custom-control custom-checkbox custom-control-inline classic">
-									<input type="checkbox" class="custom-control-input checked" value="classic" id="defaultInline3" >
-									<label class="custom-control-label perLab" for="defaultInline3">Classic</label>
-								</div>
-
-								 <!-- This paragraph holdes the sentence telling a user the plan he chose(It has nothing inside it but collects data through javscript)-->
-								 <p class="accSentence"></p>
-									<!--  -->
-
-									<!-- THIS INPUT COLLECTS THE PLSN TYPE SELECTED -->
-									<input type="hidden" value="" name="plan" id="plan" class="type">
-									<!--  -->
-
-								
-
-							    <div class="form-group">
-								 <button type="button" id="process_btn" class="btn btn-default btn-lg btn-block text-center text-uppercase"><i class="fa fa-taxi"></i> Process now</button>
-							    </div>
-
-						{{else}}	
-						<div class="alert alert-success"><a href="/logs/sign"><i class="fa fa-sign-in"></i> Sign in</a> to book now!</div>
-
-						{{/if}}	
-						</div>
-						
-                            <div class="loading">
-                                <img src="/img/loading.gif">
-                            </div>
-
-                            <div id="booking_details">
-                                
-                                    <p class="lead">Taxi Booking Details on Desk</p>
-                                    <table class="table table-striped">
-                                    
-                                        <tr>
-                                            <th>From:</th>
-                                            <td id="booking_from"></td>
-                                        </tr>
+			<div class="form-group">
+				<select id="from_place" required class="selectpicker select show-tick" data-width="100%" data-live-search="true" title="From Destination" data-size="4" data-header="From Destination" name="location">
+					{{#each destinations}}
+					<option value="{{title}}">{{title}}</option>             
+					{{/each}}
+				</select>
+		</div>
 
 
-                                        <tr>
-                                            <th>To:</th>
-                                            <td id="booking_to"></td>
-                                        </tr>
+		<div class="form-group">
+				<select id="to_place" required class="selectpicker select show-tick" data-width="100%" data-live-search="true" title="To Destination" data-size="4" data-icon="fa fa-heart"  data-header="To Destination" name="destination">
+					{{#each destinations}}
+					<option value="{{title}}">{{title}}</option>             
+					{{/each}}
+				</select>
+		</div> 
 
-                                         <tr>
-                                            <th>Plan:</th>
-                                            <td id="booking_plan"></td>
-                                        </tr>
+		<div class="form-group">
+			<div class="input-group dates-wrap">                                              
+				<input id="datepicker2" required class="dates form-control"  placeholder="Date" type="text" name="booking_date">                        
+				<div class="input-group-prepend">
+					<span  class="input-group-text"><span class="fa fa-calendar"></span></span>
+				</div>											
+			</div>
+		</div>	
+
+		{{!-- Price --}}
+		<input type="hidden" class="form-control" name="price" id="price">
+		{{!--  --}}
+		
+		<div class="form-group">
+			<div class="input-group bootstrap-timepicker timepicker input-small">
+			<input class="form-control" id="timepicker1" data-provide="timepicker" required type="text" placeholder="Time"  onfocus="this.placeholder = ''" onblur="this.placeholder = 'Time'" name="booking_time">
+			<div class="input-group-prepend">
+				<span  class="input-group-addon input-group-text"><span class="fa fa-clock-o"></span></span>
+		</div>
+		</div>	
+		</div>
+		
+			<!-- Default inline 1-->
+			<div class="custom-control custom-checkbox custom-control-inline basic">
+			<input type="checkbox"  class="custom-control-input"  value="basic" id="defaultInline1" >
+			<label class="custom-control-label musicLab" for="defaultInline1">Basic</label>
+		</div>
+
+		<!-- Default inline 2-->
+		<div class="custom-control custom-checkbox custom-control-inline deluxe">
+			<input type="checkbox" class="custom-control-input"  value="deluxe" id="defaultInline2" >
+			<label class="custom-control-label busLab" for="defaultInline2">Deluxe</label>
+		</div>
+
+		<!-- Default inline 3-->
+		<div class="custom-control custom-checkbox custom-control-inline classic">
+			<input type="checkbox" class="custom-control-input checked" value="classic" id="defaultInline3" >
+			<label class="custom-control-label perLab" for="defaultInline3">Classic</label>
+		</div>
+
+			<!-- This paragraph holdes the sentence telling a user the plan he chose(It has nothing inside it but collects data through javscript)-->
+			<p class="accSentence"></p>
+			<!--  -->
+
+			<!-- THIS INPUT COLLECTS THE PLSN TYPE SELECTED -->
+			<input type="hidden" value="" name="plan" id="plan" class="type">
+			<!--  -->
+
+		
+
+		<div class="form-group">
+			<button type="submit" id="process_btn" class="btn btn-default btn-lg btn-block text-center text-uppercase"><i class="fa fa-taxi"></i> Process now <i class="fa fa-credit-card"></i></button>
+		</div>
+		
+
+{{!-- {{else}}	
+<div class="alert alert-success"><a href="/logs/sign"><i class="fa fa-sign-in"></i> Sign in</a> to book now!</div>
+{{/if}}	 --}}
+</div>
+
+	<div class="loading">
+		<img src="/img/loading.gif">
+	</div>
+
+<div id="booking_details">	
+	<p class="lead">Taxi Booking Details on Desk</p>
+	<table class="table table-striped">
+	
+		<tr>
+			<th>From:</th>
+			<td id="booking_from"></td>
+		</tr>
+
+		<tr>
+			<th>To:</th>
+			<td id="booking_to"></td>
+		</tr>
+
+		<tr>
+			<th>Plan:</th>
+			<td id="booking_plan"></td>
+		</tr>
+
+		<tr>
+			<th>Price:</th>
+			<td id="booking_price"></td>
+		</tr>
+
+		<tr>
+			<th>Date/Time:</th>
+			<td id="booking_time"></td>
+		</tr>
+	</table>
 
 
-										 <tr>
-                                            <th>Price:</th>
-                                            <td id="booking_price"></td>
-                                        </tr>
+		<div class="stripe_payment">
+			<script src="/js/vendor/jquery-2.2.4.min.js"></script>
+			<script>
+				$('#process_btn').click(function(e){
+					let priceElement = $('#price').attr('value')
+					let price = parseFloat(priceElement.replace('$', ''))*100
+			
+					let to = $('#to_place').val();
+					let from = $('#from_place').val();
+					let plan = $('#plan').val();
+					let desc = `${from} to ${to} on ${plan}`
 
-                                        <tr>
-                                            <th>Date/Time:</th>
-                                            <td id="booking_time"></td>
-                                        </tr>
-                                    </table>
+					//stripe button forging
+					let script  = document.createElement('script')
+					script.src = "https://checkout.stripe.com/checkout.js";
+					script.setAttribute("class", "stripe-button");
+					script.setAttribute("data-key", "{{stripePubKey}}");
+					script.setAttribute("data-amount", price);
+					script.setAttribute("data-name", "NodeTaxify");
+					script.setAttribute("data-locale", "auto");
+					script.setAttribute("data-zip-code", "true");
+					script.setAttribute("data-image", "/uploads/gps_bg.jpg");
+					script.setAttribute("data-description", desc);
+					$('.stripe_btn').append(script)     
+				})          
+			</script>
+			
+			<div class="stripe_btn"></div>
+			<div><img src="/img/cards.png" width="200" alt=""></div>    
+</form>				
+			<code class="text-small">PS: To test this use any email, 4242 4242 4242 4242 as card number with a future card expiry date/cvc number</code> 
+			</div>
+			
+	</div>
 
+		
+	</div>
 
-                                   <div class="stripe_payment">
-									   <button type="submit" id="checkout-button" class="btn btn-success payment_button" >Pay Using Credit Card <i class="fa fa-credit-card"></i></button>
-									   	</form>
-
-									    <div><img src="/img/cards.png" width="200" alt=""></div> 
-									</div>
-                                 
-                            </div>
-
-                               
-                            </div>
-
-						</div>											
-					</div>
-				</div>					
-			</section>
-			<!-- End banner Area -->
+</div>											
+</div>
+</div>					
+</section>
+<!-- End banner Area -->

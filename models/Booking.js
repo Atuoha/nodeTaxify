@@ -24,6 +24,7 @@ const BookingSchema = new Schema({
         type: String
     },
 
+
     plan:{
         type: String
     },

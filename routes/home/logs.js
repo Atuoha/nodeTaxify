@@ -15,7 +15,27 @@ router.get('/sign', (req, res)=>{
 })    
 
 router.post('/login', (req, res)=>{
-    res.send('receiving response....')
+   User.findOne({email: req.body.email})
+   .then(user=>{
+       if(!user){
+        req.flash('error_msg', 'Email not recognised. Try again ): ');
+        res.redirect('back');
+       }else{
+            bcrypt.compare(req.body.password, user.password, (err, matched)=>{
+                if(err)console.log(err)
+                if(matched){
+                    if(user.role === 'Admin'){
+                        console.log('User logged in as a Admin')
+                    }else{
+                        console.log('User logged in as a Subscriber')
+                    }
+                }else{
+                    req.flash('error_msg', 'Password mismatch. Try again ): ');
+                    res.redirect('back');
+                }
+            })
+       }
+   })
 })
 
 router.post('/register', (req, res)=>{

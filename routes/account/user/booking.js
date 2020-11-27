@@ -20,6 +20,7 @@ router.all('/*', (req, res, next)=>{
 
 router.get('/', (req, res)=>{
     Booking.find({user: req.user.id})
+     .where('status').equals('active')
     // Booking.find({user:'5fb26dd6794fc32960e640c3'})
     .populate('user')
     .then(bookings=>{
@@ -31,6 +32,7 @@ router.get('/', (req, res)=>{
 
 router.get('/cancelled', (req, res)=>{
     Booking.find({user: req.user.id})
+    .where('status').equals('unactive')
     // Booking.find({user:'5fb26dd6794fc32960e640c3'})
     .populate('user')
     .then(bookings=>{
@@ -50,6 +52,7 @@ router.get('/create', (req, res)=>{
 
 router.get('/edit/:id', (req, res)=>{
     Booking.findOne({_id: req.params.id})
+    .where('status').equals('active')
     .then(booking=>{
         Destination.find()
         .then(destinations=>{
@@ -119,6 +122,7 @@ router.put('/:id/update', (req, res)=>{
 
 router.get('/cancel/:id', (req, res)=>{
     Booking.findOne({_id: req.params.id})
+    .where('status').equals('active')
     .then(booking=>{
         booking.status = 'unactive';
         booking.save()
@@ -135,6 +139,7 @@ router.get('/cancel/:id', (req, res)=>{
 
 router.get('/retrieve/:id', (req, res)=>{
     Booking.findOne({_id: req.params.id})
+    .where('status').equals('unactive')
     .then(booking=>{
         booking.status = 'active';
         booking.save()
