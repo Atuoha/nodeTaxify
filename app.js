@@ -93,20 +93,13 @@ app.use( (req, res, next)=>{
     res.locals.success_msg = req.flash('success_msg');
     res.locals.error_msg = req.flash('error_msg');
     res.locals.error = req.flash('error');
-    res.locals.loggedUser = req.user || null
+    res.locals.loggedUser = req.session.user || null
 
     next();
 })
 
 
-// const stripe = require('stripe')(stripeSecretKey);
 
-// const sessions = await stripe.checkout.sessions.create({
-//   payment_method_types: ['card'],
-//   mode: 'setup',
-//   success_url: 'https://example.com/success?session_id={CHECKOUT_SESSION_ID}',
-//   cancel_url: 'https://example.com/cancel',
-// });
 
 
 // override with POST having ?_method=DELETE

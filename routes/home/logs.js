@@ -11,6 +11,25 @@ router.all('/*', (req, res, next)=>{
 })    
 
 router.get('/sign', (req, res)=>{
+    if(req.session.user){
+        if(req.session.user.role === 'Admin'){
+            User.findOne({_id: req.session.user})
+            .then(user=>{
+                req.session.user = user
+                res.redirect('/admin')
+            })
+            .catch(err=>console.log(err))
+           
+        }else{
+            User.findOne({_id: req.session.user})
+            .then(user=>{
+                req.session.user = user
+                res.redirect('/user')
+            })
+            .catch(err=>console.log(err))
+        }
+    }
+
     res.render('home/logs')
 })    
 
@@ -25,8 +44,12 @@ router.post('/login', (req, res)=>{
                 if(err)console.log(err)
                 if(matched){
                     if(user.role === 'Admin'){
+                        req.session.user = user
+                        res.redirect('/admin')
                         console.log('User logged in as a Admin')
                     }else{
+                        req.session.user = user
+                        res.redirect('/user')
                         console.log('User logged in as a Subscriber')
                     }
                 }else{
@@ -67,5 +90,13 @@ router.post('/register', (req, res)=>{
     })
     .catch(err=>console.log(err))
 })
+
+
+
+router.get('/logout', (req, res)=>{
+    req.session.user = ''
+    res.redirect('/')
+})
+
 
 module.exports = router;

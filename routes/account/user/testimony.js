@@ -19,7 +19,7 @@ router.all('/*',  (req, res, next)=>{
 })
 
 router.get('/', (req, res)=>{
-    Testimony.find({user: req.user.id})
+    Testimony.find({user: req.session.user})
     // Testimony.find({user: '5fb26dd6794fc32960e640c3'})
     .populate('user')
     .then(testimonies=>{
@@ -34,14 +34,14 @@ router.post('/create', (req, res)=>{
 
     const newTest = new Testimony();
     newTest.content = req.body.content
-    newTest.user = req.user.id;
+    newTest.user = req.session.user;
     // newTest.user = '5fb26dd6794fc32960e640c3';
 
 
     newTest.save()
     .then(testimony=>{
         req.flash('success_msg', `Testimony has been created successfully :)`);
-        res.redirect(`/user/testimonies/${req.user.id}`)
+        res.redirect(`/user/testimonies`)
     })
     .catch(err => console.log(err))
 })
@@ -52,14 +52,14 @@ router.post('/dummy', (req, res)=>{
     for(let i = 0; i < req.body.number; i++){
         const newTest = new Testimony();
         newTest.content = faker.lorem.sentence();
-         newTest.user = req.user.id;
+         newTest.user = req.session.user;
         // newTest.user = '5fb26dd6794fc32960e640c3';
       
 
         newTest.save()
         .then(testimony=>{
             req.flash('success_msg', `${req.body.number} dummy testimonies successfully created  :)`);
-            res.redirect(`/user/testimonies/${req.user.id}`)
+            res.redirect(`/user/testimonies`)
         })
         .catch(err => console.log(err))
     }
@@ -74,7 +74,7 @@ router.put('/:id/update', (req, res)=>{
         testimony.save()
         .then(response =>{
             req.flash('success_msg', `Testimony has been updated successfully :)`);
-            res.redirect(`/user/testimonies/${req.user.id}`)
+            res.redirect(`/user/testimonies`)
         })
 
     })
@@ -88,7 +88,7 @@ router.delete('/:id/delete', (req, res)=>{
         testimony.delete()
         .then(response=>{
             req.flash('success_msg', `Testimony has been deleted successfully :)`);
-            res.redirect(`/user/testimonies/${req.user.id}`)
+            res.redirect(`/user/testimonies`)
         })
         .catch(err=>console.log(err))   
     })

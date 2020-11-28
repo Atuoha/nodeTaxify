@@ -54,7 +54,7 @@ router.get('/edit/:id', (req, res)=>{
 router.post('/create', (req, res)=>{
 
     const newContact = new Contact()
-    newContact.user = req.user.id
+    newContact.user = req.session.user
     // newContact.user = '5fb26dd6794fc32960e640c3'
     newContact.subject = req.body.subject
     newContact.message = req.body.message
@@ -73,7 +73,7 @@ router.post('/dummy', (req, res)=>{
 
     for(let i = 0; i < req.body.number; i++){
         const newContact = new Contact()
-        newContact.user = req.user.id
+        newContact.user = req.session.user
         // newContact.user = '5fb26dd6794fc32960e640c3'
         newContact.subject = faker.random.word()
         newContact.message = faker.lorem.sentence()

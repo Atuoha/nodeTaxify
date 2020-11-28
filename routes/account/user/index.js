@@ -14,24 +14,24 @@ router.all('/*', (req, res, next)=>{
 
 
 router.get('/', (req, res)=>{
-    Testimony.find({user: req.user.id})
+    Testimony.find({user: req.session.user})
     .then(testimonies=>{
         let keys =  Object.keys(testimonies);
         let testimonyCount= keys.length
-        Contact.find({user: req.user.id})
+        Contact.find({user: req.session.user})
         .then(contacts=>{
             let keys =  Object.keys(contacts);
             let contactCount = keys.length
-            Booking.find({user: req.user.id})
+            Booking.find({user: req.session.user})
             .then(booking=>{
                 let keys =  Object.keys(booking);
                 let bookingCount = keys.length
 
                 let status = ''
-                if(req.user.file){
+                if(req.session.user.file && req.session.user.fullname){
                     status = '100%'
                 }else{
-                    status = '80%'
+                    status = '50%'
                 }
                   res.render('accounts/user/index', {testimonyCount: testimonyCount, bookingCount: bookingCount, contactCount: contactCount, status: status})
             })

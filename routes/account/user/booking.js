@@ -19,7 +19,7 @@ router.all('/*', (req, res, next)=>{
 
 
 router.get('/', (req, res)=>{
-    Booking.find({user:'5fb26dd6794fc32960e640c3'})
+    Booking.find({user: req.session.user})
     // Booking.find({user: req.user.id})
      .where('status').equals('Active')
     .populate('user')
@@ -31,7 +31,7 @@ router.get('/', (req, res)=>{
 
 
 router.get('/cancelled', (req, res)=>{
-    Booking.find({user: req.user.id})
+    Booking.find({user: req.session.user})
     .where('status').equals('Unactive')
     // Booking.find({user:'5fb26dd6794fc32960e640c3'})
     .populate('user')
@@ -122,7 +122,7 @@ router.post('/charge', (req, res)=>{
         newBooking.plan = req.body.plan;
         newBooking.date = new Date();
         // newBooking.user = req.user.id;
-        newBooking.user = '5fb26dd6794fc32960e640c3';
+        newBooking.user = req.session.user;
         newBooking.save()
         .then(saved=>{
             req.flash('success_msg', 'Taxi booking process has been completed :)');
@@ -144,12 +144,12 @@ router.put('/:id/update', (req, res)=>{
         newBooking.price = req.body.price;
         newBooking.plan = req.body.plan;
         booking.date = new Date();
-        newBooking.user = req.user.id;
+        newBooking.user = req.session.user;
         // newBooking.user = '5fb26dd6794fc32960e640c3';
         booking.save()
         .then(saved=>{
             req.flash('success_msg', 'Taxi booking info has been updated successfully : )');
-            res.redirect(`/user/booking/${req.user.id}`)
+            res.redirect(`/user/booking`)
         })
         .catch(err=>console.log(err))
         })

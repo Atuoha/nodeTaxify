@@ -19,14 +19,29 @@
 							  <li><a href="/blogs">Blog</a></li>
 
 							{{#if loggedUser}}
-               				 <li class="menu-has-children"><a href="#"><i class="fa fa-user "></i> User</a>
+               				 <li class="menu-has-children"><a href="#"><i class="fa fa-user "></i> {{loggedUser.fullname}}</a>
 							    <ul>
-							      <li><a href="#"><i class="fa fa-dashboard "></i> Dashboard</a></li>
-							      <li><a href="#"><i class="fa fa-sign-out "></i> Logout</a></li>
+									{{#ifeq loggedUser.role 'Admin'}}
+										<li><a href="/admin"><i class="fa fa-dashboard "></i> Dashboard</a></li>
+									{{/ifeq}}
+
+									{{#ifeq loggedUser.role 'Subscriber'}}
+										<li><a href="/user"><i class="fa fa-dashboard "></i> Dashboard</a></li>
+									{{/ifeq}}
+							      
+							      <li><a href="/logout"><i class="fa fa-sign-out "></i> Logout</a></li>
 							      <li class="menu-has-children"><a href="#"> <i class="fa fa-link "></i> Contributions</a>
 							        <ul>
-							          <li><a href="#"><i class="fa fa-file "></i> Blog posts</a></li>
-							          <li><a href="#"><i class="fa fa-taxi "></i> Bookings</a></li>
+							          <li><a href="/author_blog/{{loggedUser._id}}"><i class="fa fa-file "></i> Blog posts</a></li>
+
+										{{#ifeq loggedUser.role 'Admin'}}
+											<li><a href="/admin/booking"><i class="fa fa-taxi "></i> Bookings</a></li>
+										{{/ifeq}}
+
+										{{#ifeq loggedUser.role 'Subscriber'}}
+											<li><a href="/user/booking"><i class="fa fa-taxi "></i> Bookings</a></li>
+										{{/ifeq}}
+							          
 							        </ul>
 							      </li>					              
 							    </ul>

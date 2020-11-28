@@ -14,7 +14,7 @@ router.all('/*', (req, res, next)=>{
 
 
 router.get('/', (req, res)=>{
-    Contact.find({user: req.user.id})
+    Contact.find({user: req.session.user})
     // Contact.find({user: '5fb26dd6794fc32960e640c3'})
     .populate('user')
     .then(contacts=>{
@@ -43,7 +43,7 @@ router.get('/edit/:id', (req, res)=>{
 router.post('/create', (req, res)=>{
 
     const newContact = new Contact()
-    newContact.user = req.user.id
+    newContact.user = req.session.user
     // newContact.user = '5fb26dd6794fc32960e640c3'
     newContact.subject = req.body.subject
     newContact.message = req.body.message
@@ -63,14 +63,14 @@ router.post('/dummy', (req, res)=>{
 
     for(let i = 0; i < req.body.number; i++){
         const newContact = new Contact()
-        newContact.user = req.user.id
+        newContact.user = req.session.user
         // newContact.user = '5fb26dd6794fc32960e640c3'
         newContact.subject = faker.random.word()
         newContact.message = faker.lorem.sentence()
         newContact.save()
         .then(savedContact=>{
             req.flash('success_msg', `${req.body.number} dummy contacts has been created successfully :)`)
-            res.redirect(`/user/contact/${req.user.id}`)
+            res.redirect(`/user/contact`)
         })
         .catch(err=>console.log(err))
     }
@@ -87,7 +87,7 @@ router.post('/update/:id', (req, res)=>{
         contact.save()
         .then(savedContact=>{
             req.flash('success_msg', 'Contact has been updated successfully :)') 
-            res.redirect(`/user/contact/${req.user.id}`)
+            res.redirect(`/user/contact`)
   
         })
         .catch(err=>console.log(err))
@@ -103,7 +103,7 @@ router.get('/delete/:id', (req, res)=>{
         contact.delete()
         .then(response=>{
             req.flash('success_msg', `${contact.subject} has been deleted successfully :)`)
-            res.redirect(`/user/contact/${req.user.id}`)
+            res.redirect(`/user/contact`)
             
         })
         .catch(err=>console.log(err))
@@ -124,7 +124,7 @@ router.post('/multiaction', (req, res)=>{
             contact.delete()
             .then(response=>{
                 req.flash('success_msg', `${contact.subject} has been deleted successfully :)`)
-                res.redirect(`/user/contact/${req.user.id}`)
+                res.redirect(`/user/contact`)
                 
             })
             .catch(err=>console.log(err)) 

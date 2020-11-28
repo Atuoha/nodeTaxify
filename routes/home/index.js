@@ -170,4 +170,25 @@ router.get('/category_blog/:id', (req, res)=>{
 })
 
 
+
+router.post('/search_post', (req, res)=>{
+    Post.find({title: req.body.search})
+    .populate('user')
+    .populate('category')
+    .then(blog_posts=>{
+        Post.find()
+        .limit(4)
+        .then(sidebar_posts=>{
+            Category.find()
+            .then(categories=>{
+                res.render('home/searched_post', {blog_posts: blog_posts, sidebar_posts: sidebar_posts, categories: categories})
+            })
+            .catch(err=>console.log(err))    
+        })
+        .catch(err=>console.log(err))
+    })
+    .catch(err=>console.log(err))
+
+})
+
 module.exports = router;

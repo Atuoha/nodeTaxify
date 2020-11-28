@@ -16,9 +16,9 @@ router.all('/*', (req, res, next)=>{
 
 
 router.get('/', (req, res)=>{
-    User.findOne({_id: req.user.id})
-    // User.findOne({_id: '5fb26dd6794fc32960e640c3'})
+    User.findOne({_id: req.session.user})
     .then(profile=>{
+    console.log(req.session.user)
         res.render('accounts/user/profile', {profile: profile} );
     })
     .catch(err=>console.log(err))
@@ -74,7 +74,7 @@ router.put('/:id/update', (req, res)=>{
                     user.save()
                     .then(savedUser=>{
                         req.flash('success_msg', `${user.fullname} has been updated successfully`);
-                        res.redirect(`/user/profile/${req.user.id}`)
+                        res.redirect(`/user/profile`)
 
                     })
                     .catch(err=>console.log(err))
@@ -90,7 +90,7 @@ router.put('/:id/update', (req, res)=>{
         user.save()
         .then(savedUser=>{
             req.flash('success_msg', `${user.fullname} has been updated successfully`);
-            res.redirect(`/user/profile/${req.user.id}`)
+            res.redirect(`/user/profile`)
         })
         .catch(err=>console.log(err));
     })

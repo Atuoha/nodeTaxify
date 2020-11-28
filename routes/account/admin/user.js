@@ -169,7 +169,7 @@ router.put('/:id/update', (req, res)=>{
                 })
             })
 
-        }
+        }else{
         user.fullname = req.body.fullname
         user.email = req.body.email
         user.status = req.body.status
@@ -181,6 +181,7 @@ router.put('/:id/update', (req, res)=>{
             res.redirect('/admin/users')
         })
         .catch(err=>console.log(err));
+        }
     })
     .catch(err=>console.log(err))
 })

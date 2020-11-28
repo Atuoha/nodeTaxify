@@ -1,0 +1,20 @@
+{{#ifeq error_msg 'User exists with email ):'}}
+<div class="alert alert-danger">{{ error_msg }}</div>
+<style>
+    .login_interface{
+        display: none;
+    }
+
+     .register_interface{
+        display: block;
+    }
+</style>
+{{/ifeq}}
+
+
+{{#if success_msg}}
+<div class="alert alert-success">{{ success_msg }}</div>
+{{/if}}
+
+
+

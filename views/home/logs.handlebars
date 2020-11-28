@@ -24,7 +24,7 @@
 
             <div class="form-group">
                 <div class="input-group">
-                    <input class="form-control" placeholder="*******" name="password" type="password" required>
+                    <input class="form-control" placeholder="*******" name="password" type="password" required="">
 
                     <div class="input-group-prepend">
                         <span class="input-group-text foot-link"><span class="fa fa-key"></span>
@@ -63,7 +63,7 @@
         </p>
 
         <form method="post" action="/logs/register" id="register_form">
-        {{> user/flash_msgs}}
+            {{> user/log_flash_msgs}}
             <div class="form-group">
                 <div class="input-group">
                     <input class="form-control" placeholder="Email" name="email" type="email" required="" autofocus="">
@@ -128,7 +128,7 @@
         <form method="post" action="" id="login-form">
             <div class="form-group">
                 <div class="input-group">
-                    <input class="form-control" placeholder="Email" name="email" type="email" required>
+                    <input class="form-control" placeholder="Email" name="email" type="email" required="">
 
                     <div class="input-group-prepend">
                         <span class="input-group-text foot-link"><span class="fa fa-envelope"></span>

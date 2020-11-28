@@ -33,7 +33,7 @@ router.post('/create', (req, res)=>{
 
     const newTest = new Testimony();
     newTest.content = req.body.content
-    newTest.user = req.user.id;
+    newTest.user = req.session.user;
     // newTest.user = '5fb26dd6794fc32960e640c3';
 
 
@@ -51,7 +51,7 @@ router.post('/dummy', (req, res)=>{
     for(let i = 0; i < req.body.number; i++){
         const newTest = new Testimony();
         newTest.content = faker.lorem.sentence();
-         newTest.user = req.user.id;
+         newTest.user = req.session.user;
         // newTest.user = '5fb26dd6794fc32960e640c3';
       
 

@@ -4,62 +4,65 @@
 					<div class="row">
 					
 						<div class="col-lg-8 posts-list">	
-						{{#if blog_posts}}
-						   {{#each blog_posts}}
-							<div class="single-post row" id="blogs">
-								<div class="col-lg-3  col-md-3 meta-details">
-									<ul class="tags">
-										<li><a href="#">{{sub}}</a></li>
-									</ul>
-									<div class="user-details row">
-										<p class="user-name col-lg-12 col-md-12 col-6"><a href="/author_blog/{{user.id}}">{{user.fullname}}</a> <span class="lnr lnr-user"></span></p>
-										<p class="date col-lg-12 col-md-12 col-6"><a href="#">{{generate_date date 'MMM-Do-Y'}}</a> <span class="lnr lnr-calendar-full"></span></p>
-										<p class="view col-lg-12 col-md-12 col-6"><a href="#">1.2M Views</a> <span class="lnr lnr-eye"></span></p>
-															
+							{{#if blog_posts}}
+							{{#each blog_posts}}
+								<div class="single-post row" id="blogs">
+									<div class="col-lg-3  col-md-3 meta-details">
+										<ul class="tags">
+											<li><a href="#">{{sub}}</a></li>
+										</ul>
+										<div class="user-details row">
+											<p class="user-name col-lg-12 col-md-12 col-6"><a href="/author_blog/{{user.id}}">{{user.fullname}}</a> <span class="lnr lnr-user"></span></p>
+											<p class="date col-lg-12 col-md-12 col-6"><a href="#">{{generate_date date 'MMM-Do-Y'}}</a> <span class="lnr lnr-calendar-full"></span></p>
+											<p class="view col-lg-12 col-md-12 col-6"><a href="#">1.2M Views</a> <span class="lnr lnr-eye"></span></p>
+																
+										</div>
+									</div>
+									<div class="col-lg-9 col-md-9 ">
+										<div class="feature-img">
+											<img class="img-fluid" src="/uploads/{{file}}" alt="">
+										</div>
+										<a class="posts-title" href="/single_blog/{{slug}}"><h3>{{title}}</h3></a>
+										<p class="excert">
+											{{body}}
+										</p>
+										<a href="/single_blog/{{slug}}" class="primary-btn">View More</a>
 									</div>
 								</div>
-								<div class="col-lg-9 col-md-9 ">
-									<div class="feature-img">
-										<img class="img-fluid" src="/uploads/{{file}}" alt="">
-									</div>
-									<a class="posts-title" href="/single_blog/{{slug}}"><h3>{{title}}</h3></a>
-									<p class="excert">
-										{{body}}
-									</p>
-									<a href="/single_blog/{{slug}}" class="primary-btn">View More</a>
-								</div>
-                                </div>
-								
-                                    <nav class="blog-pagination justify-content-center d-flex">
-                                        <ul class="pagination">
-                                            <li class="page-item">
-                                                <a href="#" class="page-link" aria-label="Previous">
-                                                    <span aria-hidden="true">
-                                                        <span class="lnr lnr-chevron-left"></span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li class="page-item"><a href="#" class="page-link">01</a></li>
-                                            <li class="page-item active"><a href="#" class="page-link">02</a></li>
-                                            <li class="page-item"><a href="#" class="page-link">03</a></li>
-                                            <li class="page-item"><a href="#" class="page-link">04</a></li>
-                                            <li class="page-item"><a href="#" class="page-link">09</a></li>
-                                            <li class="page-item">
-                                                <a href="#" class="page-link" aria-label="Next">
-                                                    <span aria-hidden="true">
-                                                        <span class="lnr lnr-chevron-right"></span>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                        </ul>
-		                            </nav>
-							</div>
-							{{/each}}
+									
+										<nav class="blog-pagination justify-content-center d-flex">
+											<ul class="pagination">
+												<li class="page-item">
+													<a href="#" class="page-link" aria-label="Previous">
+														<span aria-hidden="true">
+															<span class="lnr lnr-chevron-left"></span>
+														</span>
+													</a>
+												</li>
+												<li class="page-item"><a href="#" class="page-link">01</a></li>
+												<li class="page-item active"><a href="#" class="page-link">02</a></li>
+												<li class="page-item"><a href="#" class="page-link">03</a></li>
+												<li class="page-item"><a href="#" class="page-link">04</a></li>
+												<li class="page-item"><a href="#" class="page-link">09</a></li>
+												<li class="page-item">
+													<a href="#" class="page-link" aria-label="Next">
+														<span aria-hidden="true">
+															<span class="lnr lnr-chevron-right"></span>
+														</span>
+													</a>
+												</li>
+											</ul>
+										</nav>
+								{{/each}}	
+							
 						{{else}}
 						<div class="alert alert-success text-center">No blog posts to display</div>
 						{{/if}}	
+						</div>
 
-                            {{> home/blog_sidebar}}
+						<div class="col-lg-4 sidebar-widgets">
+							{{> home/blog_sidebar}}
+						</div>
 
                          </div>
 					</div>
